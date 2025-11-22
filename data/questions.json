@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "text": "What is the capital city of France?",
+    "options": ["Berlin", "Madrid", "Paris", "Rome"],
+    "correct": 2
+  },
+  {
+    "id": 2,
+    "text": "नेपालको राजधानी कुन हो?",
+    "options": ["पोखरा", "काठमाडौँ", "ललितपुर", "चितवन"],
+    "correct": 1
+  },
+  {
+    "id": 3,
+    "text": "Which planet is known as the Red Planet?",
+    "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+    "correct": 1
+  },
+  {
+    "id": 4,
+    "text": "सगरमाथाको नयाँ उचाई कति हो?",
+    "options": ["८८४८ मिटर", "८८४८.८६ मिटर", "८८५० मिटर", "८८४४ मिटर"],
+    "correct": 1
+  },
+  {
+    "id": 5,
+    "text": "What is the chemical symbol for Water?",
+    "options": ["O2", "H2O", "CO2", "NaCl"],
+    "correct": 1
+  },
+  {
+    "id": 6,
+    "text": "नेपालमा कतिवटा जिल्ला छन्?",
+    "options": ["७५", "७२", "७७", "७०"],
+    "correct": 2
+  },
+  {
+    "id": 7,
+    "text": "Who wrote 'Romeo and Juliet'?",
+    "options": ["Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen"],
+    "correct": 1
+  },
+  {
+    "id": 8,
+    "text": "नेपालको राष्ट्रिय रङ कुन हो?",
+    "options": ["रातो", "सिम्रिक", "गुलाबी", "सुन्तला"],
+    "correct": 1
+  },
+  {
+    "id": 9,
+    "text": "What is the largest mammal in the world?",
+    "options": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+    "correct": 1
+  },
+  {
+    "id": 10,
+    "text": "Which year did the Titanic sink?",
+    "options": ["1912", "1905", "1920", "1898"],
+    "correct": 0
+  },
+  {
+    "id": 11,
+    "text": "What is the currency of Japan?",
+    "options": ["Yuan", "Won", "Yen", "Dollar"],
+    "correct": 2
+  },
+  {
+    "id": 12,
+    "text": "नेपालको पहिलो प्रधानमन्त्री को हुन्?",
+    "options": ["बिपी कोइराला", "भीमसेन थापा", "जंगबहादुर राणा", "माथवरसिंह थापा"],
+    "correct": 1
+  },
+  {
+    "id": 13,
+    "text": "Who painted the Mona Lisa?",
+    "options": ["Van Gogh", "Picasso", "Leonardo da Vinci", "Michelangelo"],
+    "correct": 2
+  },
+  {
+    "id": 14,
+    "text": "Which element represents 'N' on the periodic table?",
+    "options": ["Nickel", "Neon", "Nitrogen", "Sodium"],
+    "correct": 2
+  },
+  {
+    "id": 15,
+    "text": "गौतम बुद्धको जन्म कहाँ भएको थियो?",
+    "options": ["भारत", "नेपाल", "श्रीलंका", "चीन"],
+    "correct": 1
+  }
+]
