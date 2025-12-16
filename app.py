@@ -1,10 +1,11 @@
 from flask import Flask, send_from_directory, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
 import json
+import yaml
 import random
 import time
 import threading
-import os,random
+import os
 from typing import Dict, Any
 
 app = Flask(__name__)
@@ -14,8 +15,14 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 # Load questions from file
 questions_data = []
 try:
-    with open(os.path.join(os.path.dirname(__file__), 'data', 'gk_sansthan.json'), 'r', encoding='utf-8') as f:
-        questions_data = json.load(f)
+    # JSON format
+    # with open(os.path.join(os.path.dirname(__file__), 'data', 'gk_sansthan.json'), 'r', encoding='utf-8') as f:
+    #     questions_data = json.load(f)
+    
+    # YAML format
+    with open(os.path.join(os.path.dirname(__file__), 'data', 'math.yaml'), 'r', encoding='utf-8') as f:
+        questions_data = yaml.safe_load(f)
+    
     print(f"Loaded {len(questions_data)} questions.")
 except Exception as err:
     print(f"Error loading questions: {err}")

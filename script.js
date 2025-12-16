@@ -186,9 +186,14 @@ socket.on('new_question', (q) => {
     // Update Texts
     document.getElementById('q-current').textContent = q.index + 1;
     document.getElementById('q-total').textContent = q.total;
-    document.getElementById('question-text').textContent = q.text;
+    document.getElementById('question-text').innerHTML = q.text;
     document.getElementById('timer-display').textContent = q.time;
     document.getElementById('timer-display').classList.remove('text-red-500');
+    
+    // Render LaTeX if MathJax is loaded
+    if (typeof MathJax !== 'undefined') {
+        MathJax.typesetPromise([document.getElementById('question-text')]).catch((err) => console.log('MathJax error:', err));
+    }
     
     // Host vs Player specific UI
     if (isHost) {
@@ -206,7 +211,7 @@ socket.on('new_question', (q) => {
     q.options.forEach((optText, idx) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
-        btn.textContent = optText;
+        btn.innerHTML = optText;
         
         // Interaction
         if (!isHost) {
@@ -229,6 +234,11 @@ socket.on('new_question', (q) => {
         
         grid.appendChild(btn);
     });
+    
+    // Render LaTeX in options if MathJax is loaded
+    if (typeof MathJax !== 'undefined') {
+        MathJax.typesetPromise([grid]).catch((err) => console.log('MathJax error:', err));
+    }
     
     // Add skip button for players
     if (!isHost) {
