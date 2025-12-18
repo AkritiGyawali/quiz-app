@@ -12,6 +12,56 @@ let currentSelection = null; // Index
 let currentScore = 0;
 let lastPlayerResults = []; // Store latest response times
 
+// --- RECONNECTION LOGIC ---
+function saveGameState(role, roomCode, playerName = null) {
+    const gameState = {
+        role: role,
+        roomCode: roomCode,
+        playerName: playerName,
+        timestamp: Date.now()
+    };
+    localStorage.setItem('quizGameState', JSON.stringify(gameState));
+    console.log('Game state saved:', gameState);
+}
+
+function clearGameState() {
+    localStorage.removeItem('quizGameState');
+    console.log('Game state cleared');
+}
+
+function attemptReconnect() {
+    const savedState = localStorage.getItem('quizGameState');
+    if (!savedState) return;
+    
+    const reconnectData = JSON.parse(savedState);
+    // Only reconnect if less than 5 minutes old
+    if (Date.now() - reconnectData.timestamp > 300000) {
+        clearGameState();
+        return;
+    }
+    
+    console.log('Attempting reconnect:', reconnectData);
+    
+    if (reconnectData.role === 'host') {
+        isHost = true;
+        myRoomCode = reconnectData.roomCode;
+        socket.emit('host_reconnect', { roomCode: reconnectData.roomCode });
+    } else if (reconnectData.role === 'player') {
+        isHost = false;
+        myRoomCode = reconnectData.roomCode;
+        myName = reconnectData.playerName;
+        socket.emit('player_reconnect', { 
+            roomCode: reconnectData.roomCode,
+            name: reconnectData.playerName 
+        });
+    }
+}
+
+// Try to reconnect on page load
+window.addEventListener('load', () => {
+    attemptReconnect();
+});
+
 // DOM Elements
 const views = {
     menu: document.getElementById('view-menu'),
@@ -71,15 +121,40 @@ document.getElementById('btn-join-back').addEventListener('click', () => {
     showView('menu');
 });
 
+// --- Game Mode Toggle ---
+document.getElementById('mode-manual').addEventListener('change', (e) => {
+    if (e.target.checked) {
+        document.getElementById('auto-delay-container').classList.add('hidden');
+    }
+});
+
+document.getElementById('mode-auto').addEventListener('change', (e) => {
+    if (e.target.checked) {
+        document.getElementById('auto-delay-container').classList.remove('hidden');
+    }
+});
+
 // --- Event Listeners: Host ---
 
 document.getElementById('btn-host-start').addEventListener('click', () => {
-    socket.emit('host_start_game', { roomCode: myRoomCode });
+    const gameMode = document.querySelector('input[name="gameMode"]:checked').value;
+    const autoDelay = parseInt(document.getElementById('auto-delay').value) || 5;
+    socket.emit('host_start_game', { 
+        roomCode: myRoomCode,
+        gameMode: gameMode,
+        autoDelay: autoDelay
+    });
 });
 
 document.getElementById('btn-host-next').addEventListener('click', () => {
     socket.emit('host_next_question', { roomCode: myRoomCode });
     document.getElementById('btn-host-next').classList.add('hidden'); // Hide to prevent double clicks
+    document.getElementById('btn-all-answered').classList.add('hidden');
+});
+
+document.getElementById('btn-all-answered').addEventListener('click', () => {
+    socket.emit('skip_to_results', { roomCode: myRoomCode });
+    document.getElementById('btn-all-answered').classList.add('hidden');
 });
 
 // --- Event Listeners: Player ---
@@ -108,6 +183,7 @@ socket.on('error_msg', (msg) => {
 // 1. Host Logic
 socket.on('game_created', ({ roomCode }) => {
     myRoomCode = roomCode;
+    saveGameState('host', roomCode);
     document.getElementById('host-room-code').textContent = roomCode;
     showView('hostLobby');
 });
@@ -154,6 +230,7 @@ socket.on('update_players', (players) => {
 socket.on('player_joined_success', ({ roomCode, name }) => {
     myRoomCode = roomCode;
     myName = name;
+    saveGameState('player', roomCode, name);
     document.getElementById('player-display-name').textContent = name;
     showView('playerWaiting');
 });
@@ -189,6 +266,12 @@ socket.on('new_question', (q) => {
     document.getElementById('question-text').innerHTML = q.text;
     document.getElementById('timer-display').textContent = q.time;
     document.getElementById('timer-display').classList.remove('text-red-500');
+    
+    // Reset answer progress for host
+    if (isHost) {
+        document.getElementById('answer-progress').classList.add('hidden');
+        document.getElementById('btn-all-answered').classList.add('hidden');
+    }
     
     // Render LaTeX if MathJax is loaded
     if (typeof MathJax !== 'undefined') {
@@ -332,6 +415,7 @@ socket.on('round_result', ({ correctIndex, players, playerResults, fastestCorrec
 });
 
 socket.on('game_over', ({ players }) => {
+    clearGameState();
     showView('gameOver');
     const container = document.getElementById('final-leaderboard');
     container.innerHTML = '';
@@ -370,6 +454,65 @@ socket.on('game_over', ({ players }) => {
         `;
         container.appendChild(div);
     });
+});
+
+// --- RECONNECTION EVENT HANDLERS ---
+socket.on('host_reconnected', (data) => {
+    console.log('Host reconnected:', data);
+    myRoomCode = data.roomCode;
+    isHost = true;
+    
+    if (data.status === 'LOBBY') {
+        showView('hostLobby');
+        document.getElementById('host-room-code').textContent = data.roomCode;
+        updatePlayerList(data.players);
+    } else if (data.status === 'GAME_ACTIVE' || data.status === 'QUESTION_ACTIVE') {
+        showView('game');
+        updateLeaderboard(data.players);
+    }
+});
+
+socket.on('player_reconnected', (data) => {
+    console.log('Player reconnected:', data);
+    myRoomCode = data.roomCode;
+    isHost = false;
+    myName = data.playerData.name;
+    currentScore = data.playerData.score;
+    
+    if (data.status === 'LOBBY') {
+        showView('playerWaiting');
+        document.getElementById('player-display-name').textContent = myName;
+    } else if (data.status === 'GAME_ACTIVE' || data.status === 'QUESTION_ACTIVE') {
+        showView('game');
+        document.getElementById('my-score').textContent = currentScore;
+    }
+});
+
+socket.on('game_ended', (data) => {
+    clearGameState();
+    alert(data.reason || 'Game ended');
+    location.reload();
+});
+
+// Answer progress tracking
+socket.on('answer_progress', (data) => {
+    if (isHost) {
+        const progressEl = document.getElementById('answer-progress');
+        const answersCountEl = document.getElementById('answers-count');
+        const totalPlayersEl = document.getElementById('total-players');
+        const allAnsweredBtn = document.getElementById('btn-all-answered');
+        
+        progressEl.classList.remove('hidden');
+        answersCountEl.textContent = data.answeredCount;
+        totalPlayersEl.textContent = data.totalPlayers;
+        
+        // Show all-answered button if all players have answered
+        if (data.allAnswered && data.totalPlayers > 0) {
+            allAnsweredBtn.classList.remove('hidden');
+        } else {
+            allAnsweredBtn.classList.add('hidden');
+        }
+    }
 });
 
 function updateLeaderboard(players) {

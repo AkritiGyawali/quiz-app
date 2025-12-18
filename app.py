@@ -53,26 +53,39 @@ def handle_connect():
 @socketio.on('disconnect')
 def handle_disconnect():
     sid = request.sid
-    print(f'User disconnected: {sid}')
+    print(f'User disconnected: {sid} - giving grace period for reconnection')
     
-    # Clean up if host disconnects or player leaves
-    for code in list(rooms.keys()):
-        room = rooms.get(code)
-        if not room:
-            continue
-        if room.get('hostId') == sid:
-            # Host left, destroy room
-            socketio.emit('game_ended', {'reason': "Host disconnected"}, to=code)
-            room['timer_stop'] = True
-            del rooms[code]
-        else:
-            # Remove player from room
-            players = room.get('players', [])
-            for i, player in enumerate(players):
-                if player['id'] == sid:
-                    players.pop(i)
-                    socketio.emit('update_players', players, to=code)
-                    break
+    # Give 30 second grace period for reconnection
+    def cleanup_after_grace_period():
+        time.sleep(30)
+        
+        # Check if still disconnected after grace period
+        for code in list(rooms.keys()):
+            room = rooms.get(code)
+            if not room:
+                continue
+                
+            if room.get('hostId') == sid:
+                # Host didn't reconnect, destroy room
+                print(f'Host {sid} did not reconnect, ending game {code}')
+                socketio.emit('game_ended', {'reason': "Host disconnected"}, to=code)
+                room['timer_stop'] = True
+                if code in rooms:
+                    del rooms[code]
+            else:
+                # Check if player didn't reconnect
+                players = room.get('players', [])
+                for i, player in enumerate(players):
+                    if player['id'] == sid:
+                        print(f'Player {player["name"]} did not reconnect, removing from game {code}')
+                        players.pop(i)
+                        socketio.emit('update_players', players, to=code)
+                        break
+    
+    # Start grace period timer in background
+    cleanup_thread = threading.Thread(target=cleanup_after_grace_period)
+    cleanup_thread.daemon = True
+    cleanup_thread.start()
 
 # --- HOST EVENTS ---
 @socketio.on('host_create_game')
@@ -91,7 +104,9 @@ def handle_host_create_game():
         'answers': {},
         'gameQuestions': [],
         'questionStartTime': None,
-        'answerTimes': {}
+        'answerTimes': {},
+        'gameMode': 'manual',
+        'autoDelay': 5
     }
     join_room(room_code)
     emit('game_created', {'roomCode': room_code})
@@ -107,6 +122,11 @@ def handle_host_start_game(data):
         print(f"Invalid host_start_game request")
         return
 
+    # Store game mode settings
+    room['gameMode'] = data.get('gameMode', 'manual')
+    room['autoDelay'] = data.get('autoDelay', 5)
+    print(f"Game mode: {room['gameMode']}, Auto delay: {room['autoDelay']}s")
+
     # Filter questions with ID 5 to 10
     room['gameQuestions'] = [q for q in questions_data if 5 <= q['id'] <= 10]
 
@@ -115,6 +135,7 @@ def handle_host_start_game(data):
         print("Filter returned empty, loading all questions.")
         room['gameQuestions'] = questions_data[:]
     
+    random.shuffle(room['gameQuestions'])
     print(f"Starting game with {len(room['gameQuestions'])} questions")
 
     room['status'] = 'GAME_ACTIVE'
@@ -203,6 +224,110 @@ def handle_player_submit_answer(data):
         room['answers'][sid] = answer_index
         if answer_index != -1:
             room['answerTimes'][sid] = time.time() * 1000
+        
+        # Emit answer progress to all players
+        answered_count = len(room['answers'])
+        total_players = len(room['players'])
+        all_answered = answered_count == total_players and total_players > 0
+        
+        socketio.emit('answer_progress', {
+            'answeredCount': answered_count,
+            'totalPlayers': total_players,
+            'allAnswered': all_answered
+        }, to=room_code)
+        
+        print(f"Answer progress: {answered_count}/{total_players} answered")
+
+@socketio.on('skip_to_results')
+def handle_skip_to_results(data):
+    sid = request.sid
+    room_code = data.get('roomCode')
+    room = rooms.get(room_code)
+    
+    if not room or room['hostId'] != sid:
+        return
+    
+    # Stop timer and immediately finish round
+    room['timer_stop'] = True
+    print(f"Host skipped to results - all players answered")
+    finish_round(room_code)
+
+# --- RECONNECTION HANDLERS ---
+@socketio.on('host_reconnect')
+def handle_host_reconnect(data):
+    sid = request.sid
+    room_code = data.get('roomCode')
+    room = rooms.get(room_code)
+    
+    if not room:
+        emit('error_msg', 'Game session expired')
+        print(f'Host reconnect failed: room {room_code} not found')
+        return
+    
+    # Update host ID to new session (this prevents cleanup)
+    print(f'Host reconnecting: old ID was {room["hostId"]}, new ID is {sid}')
+    room['hostId'] = sid
+    
+    # Rejoin room
+    join_room(room_code)
+    
+    # Send current game state back
+    emit('host_reconnected', {
+        'roomCode': room_code,
+        'status': room['status'],
+        'players': room['players'],
+        'currentQuestionIndex': room['currentQuestionIndex'],
+        'totalQuestions': len(room['gameQuestions'])
+    })
+    
+    print(f"Host successfully reconnected to {room_code}")
+
+@socketio.on('player_reconnect')
+def handle_player_reconnect(data):
+    sid = request.sid
+    room_code = data.get('roomCode')
+    player_name = data.get('name')
+    
+    print(f'Player reconnect attempt: {player_name} to room {room_code}')
+    
+    room = rooms.get(room_code)
+    if not room:
+        emit('error_msg', 'Game session expired')
+        print(f'Player reconnect failed: room {room_code} not found')
+        return
+    
+    # Find player by name and update their ID
+    player = next((p for p in room['players'] if p['name'] == player_name), None)
+    if not player:
+        emit('error_msg', 'Player not found in game')
+        print(f'Player reconnect failed: {player_name} not in player list. Players: {[p["name"] for p in room["players"]]}')
+        return
+    
+    # Update player ID to new session (this prevents cleanup)
+    old_id = player['id']
+    print(f'Player {player_name} reconnecting: old ID was {old_id}, new ID is {sid}')
+    player['id'] = sid
+    
+    # Update answers and times dicts if they exist
+    if old_id in room['answers']:
+        room['answers'][sid] = room['answers'].pop(old_id)
+    if old_id in room['answerTimes']:
+        room['answerTimes'][sid] = room['answerTimes'].pop(old_id)
+    
+    # Rejoin room
+    join_room(room_code)
+    
+    # Send current game state back
+    emit('player_reconnected', {
+        'roomCode': room_code,
+        'status': room['status'],
+        'playerData': player
+    })
+    
+    # Update all clients with new player list
+    socketio.emit('update_players', room['players'], to=room_code)
+    
+    print(f"Player {player_name} successfully reconnected to {room_code}")
 
 def send_question(room_code):
     room = rooms.get(room_code)
@@ -342,6 +467,24 @@ def finish_round(room_code):
             'averageResponseTime': average_response_time
         }
     }, to=room_code)
+    
+    # Auto-advance if in auto mode
+    if room.get('gameMode') == 'auto':
+        auto_delay = room.get('autoDelay', 5)
+        print(f"Auto-advancing to next question in {auto_delay} seconds")
+        
+        def auto_advance():
+            time.sleep(auto_delay)
+            if room_code in rooms:  # Check room still exists
+                room['currentQuestionIndex'] += 1
+                if room['currentQuestionIndex'] < len(room['gameQuestions']):
+                    send_question(room_code)
+                else:
+                    end_game(room_code)
+        
+        auto_thread = threading.Thread(target=auto_advance)
+        auto_thread.daemon = True
+        auto_thread.start()
 
 def end_game(room_code):
     room = rooms.get(room_code)
