@@ -183,7 +183,24 @@
         <div id="final-leaderboard" class="w-full max-w-2xl space-y-4 mb-12">
             <!-- Final items -->
         </div>
-        <button onclick="location.reload()" class="bg-gray-800 hover:bg-gray-700 text-white px-10 py-4 rounded-xl font-bold text-xl transition">Back to Menu</button>
+        <div class="flex gap-4">
+            <button id="btn-review" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-bold text-xl transition">📝 Review Questions & Answers</button>
+            <button onclick="location.reload()" class="bg-gray-800 hover:bg-gray-700 text-white px-10 py-4 rounded-xl font-bold text-xl transition">Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- --- REVIEW PAGE --- -->
+    <div id="view-review" class="view-section hidden flex-col min-h-screen p-4">
+        <div class="w-full max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-5xl font-black text-indigo-400">Question Review</h2>
+                <button id="btn-back-from-review" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-bold transition">← Back to Results</button>
+            </div>
+            
+            <div id="review-content" class="space-y-6">
+                <!-- Questions with answers will be inserted here -->
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

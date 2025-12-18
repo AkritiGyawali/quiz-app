@@ -69,8 +69,12 @@ const views = {
     playerJoin: document.getElementById('view-player-join'),
     playerWaiting: document.getElementById('view-player-waiting'),
     game: document.getElementById('view-game'),
-    gameOver: document.getElementById('view-game-over')
+    gameOver: document.getElementById('view-game-over'),
+    review: document.getElementById('view-review')
 };
+
+// Store game questions for review
+let gameQuestions = [];
 
 // Debug: Check if all elements are found
 console.log('Views initialized:', views);
@@ -242,6 +246,16 @@ socket.on('new_question', (q) => {
     showView('game');
     currentSelection = null;
     
+    // Store question for review
+    if (q.index === 0) {
+        gameQuestions = []; // Reset on first question
+    }
+    gameQuestions.push({
+        text: q.text,
+        options: q.options,
+        correctIndex: null // Will be filled in round_result
+    });
+    
     // Clear previous response time display
     const responseTimeEl = document.getElementById('my-response-time');
     if (responseTimeEl && responseTimeEl.parentNode) {
@@ -357,6 +371,11 @@ socket.on('timer_tick', (timeLeft) => {
 });
 
 socket.on('round_result', ({ correctIndex, players, playerResults, fastestCorrect, roundStats }) => {
+    // Store correct answer for review
+    if (gameQuestions.length > 0) {
+        gameQuestions[gameQuestions.length - 1].correctIndex = correctIndex;
+    }
+    
     // Store player results for leaderboard display
     if (playerResults) {
         lastPlayerResults = playerResults;
@@ -676,4 +695,52 @@ function showHostStatistics(roundStats) {
             </div>
         </div>
     `;
+}
+
+// --- REVIEW PAGE ---
+document.getElementById('btn-review').addEventListener('click', () => {
+    showReviewPage();
+});
+
+document.getElementById('btn-back-from-review').addEventListener('click', () => {
+    showView('gameOver');
+});
+
+function showReviewPage() {
+    showView('review');
+    const reviewContent = document.getElementById('review-content');
+    reviewContent.innerHTML = '';
+    
+    gameQuestions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'bg-gray-900 p-6 rounded-xl border border-gray-800';
+        
+        questionDiv.innerHTML = `
+            <div class="flex items-start gap-4">
+                <div class="text-3xl font-bold text-indigo-400">${index + 1}.</div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-4">${q.text}</h3>
+                    <div class="space-y-2">
+                        ${q.options.map((opt, idx) => `
+                            <div class="p-3 rounded-lg ${
+                                idx === q.correctIndex 
+                                    ? 'bg-green-900/50 border-2 border-green-500' 
+                                    : 'bg-gray-800'
+                            }">
+                                <span class="font-semibold">${String.fromCharCode(65 + idx)}.</span> ${opt}
+                                ${idx === q.correctIndex ? '<span class="ml-2 text-green-400">✓ Correct Answer</span>' : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        reviewContent.appendChild(questionDiv);
+    });
+    
+    // Render LaTeX if MathJax is loaded
+    if (typeof MathJax !== 'undefined') {
+        MathJax.typesetPromise([reviewContent]).catch((err) => console.log('MathJax error:', err));
+    }
 }
