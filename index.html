@@ -23,8 +23,19 @@
 </head>
 <body class="bg-gray-950 text-white font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
+    <!-- --- NAVIGATION BAR --- -->
+    <nav class="bg-gray-900 border-b border-gray-800 px-6 py-4 fixed w-full top-0 z-50 backdrop-blur-sm bg-opacity-90">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">QUIZ MASTER</div>
+            <div class="flex gap-4">
+                <a href="/" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Multiplayer Mode</a>
+                <a href="/exam" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition font-semibold">Exam Mode</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- --- MAIN MENU --- -->
-    <div id="view-menu" class="view-section flex flex-col items-center justify-center min-h-screen p-4">
+    <div id="view-menu" class="view-section flex flex-col items-center justify-center min-h-screen p-4 pt-20">
         <h1 class="text-7xl md:text-9xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 tracking-tighter text-center">QUIZ<br>MASTER</h1>
         <p class="text-2xl text-gray-400 mb-12 text-center">Real-time Multiplayer Trivia</p>
         

@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, request
+from flask import Flask, send_from_directory, request, render_template
 from flask_socketio import SocketIO, emit, join_room, leave_room
 import json
 import yaml
@@ -39,6 +39,13 @@ SCORE_WRONG = -5
 @app.route('/')
 def index():
     return send_from_directory('.', 'index.html')
+
+@app.route('/exam')
+def exam():
+    # Load questions from math.yaml for exam mode
+    with open(os.path.join(os.path.dirname(__file__), 'data', 'math.yaml'), 'r', encoding='utf-8') as f:
+        questions = yaml.safe_load(f)
+    return render_template('exam.html', questions=questions)
 
 @app.route('/<path:filename>')
 def serve_static(filename):
