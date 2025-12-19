@@ -19,7 +19,7 @@
         };
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="bg-gray-950 text-white font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
@@ -46,7 +46,7 @@
     </div>
 
     <!-- --- HOST LOBBY --- -->
-    <div id="view-host-lobby" class="view-section hidden flex-col items-center justify-center min-h-screen p-4">
+    <div id="view-host-lobby" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20">
         <div class="bg-gray-900 p-10 rounded-3xl border border-gray-800 text-center w-full max-w-4xl shadow-2xl">
             <p class="text-gray-500 uppercase tracking-widest font-bold mb-2">Room Code</p>
             <div id="host-room-code" class="text-8xl font-mono font-black text-white mb-10 tracking-widest">---</div>
@@ -82,7 +82,7 @@
     </div>
 
     <!-- --- PLAYER JOIN --- -->
-    <div id="view-player-join" class="view-section hidden flex-col items-center justify-center min-h-screen p-4">
+    <div id="view-player-join" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20">
         <div class="bg-gray-900 p-8 rounded-3xl border border-gray-800 w-full max-w-md shadow-2xl">
             <h2 class="text-4xl font-black mb-8 text-center">Join Game</h2>
             <form id="form-join" class="space-y-6">
@@ -101,7 +101,7 @@
     </div>
 
     <!-- --- PLAYER WAITING --- -->
-    <div id="view-player-waiting" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 text-center">
+    <div id="view-player-waiting" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20 text-center">
         <div class="bg-gray-900 p-12 rounded-full border-4 border-gray-800 mb-8 animate-pulse">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -127,7 +127,7 @@
     </div>
 
     <!-- --- GAME VIEW (SHARED HOST/PLAYER) --- -->
-    <div id="view-game" class="view-section hidden flex-col min-h-screen">
+    <div id="view-game" class="view-section hidden flex-col min-h-screen pt-16">
         <!-- Top Bar -->
         <div class="flex justify-between items-center p-6 bg-gray-900/50 border-b border-gray-800 backdrop-blur-sm z-20">
             <div class="flex items-center gap-4">
@@ -189,7 +189,7 @@
     </div>
 
     <!-- --- GAME OVER --- -->
-    <div id="view-game-over" class="view-section hidden flex-col items-center justify-center min-h-screen p-4">
+    <div id="view-game-over" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20">
         <h2 class="text-6xl font-black text-yellow-400 mb-8 drop-shadow-lg">Final Standings</h2>
         <div id="final-leaderboard" class="w-full max-w-2xl space-y-4 mb-12">
             <!-- Final items -->
@@ -201,7 +201,7 @@
     </div>
 
     <!-- --- REVIEW PAGE --- -->
-    <div id="view-review" class="view-section hidden flex-col min-h-screen p-4">
+    <div id="view-review" class="view-section hidden flex-col min-h-screen p-4 pt-20">
         <div class="w-full max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-5xl font-black text-indigo-400">Question Review</h2>
@@ -214,6 +214,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

@@ -1,101 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Exam</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .question {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .question-text {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-        .options {
-            list-style: none;
-            padding: 0;
-        }
-        .option {
-            padding: 10px 15px;
-            margin: 8px 0;
-            background-color: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .option:hover {
-            background-color: #e3f2fd;
-            border-color: #2196F3;
-        }
-        .option input[type="radio"] {
-            margin-right: 10px;
-        }
-        .submit-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
-        }
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Math Exam - Quiz Master</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <h1>Mathematics Exam</h1>
-    <form id="examForm">
-        {% for question in questions %}
-        <div class="question">
-            <div class="question-text">
-                {{ loop.index }}. {{ question.text|safe }}
+<body class="bg-gray-950 text-white font-sans min-h-screen selection:bg-indigo-500 selection:text-white">
+
+    <!-- --- NAVIGATION BAR --- -->
+    <nav class="bg-gray-900 border-b border-gray-800 px-6 py-4 fixed w-full top-0 z-50 backdrop-blur-sm bg-opacity-90">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">QUIZ MASTER</div>
+            <div class="flex gap-4">
+                <a href="/" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Multiplayer Mode</a>
+                <a href="/exam" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition font-semibold">Exam Mode</a>
             </div>
-            <ul class="options">
-                {% for option in question.options %}
-                <li class="option">
-                    <label>
-                        <input type="radio" name="question{{ question.id }}" value="{{ loop.index0 }}">
-                        {{ option|safe }}
-                    </label>
-                </li>
-                {% endfor %}
-            </ul>
         </div>
-        {% endfor %}
-        <button type="submit" class="submit-btn">Submit Exam</button>
-    </form>
+    </nav>
+
+    <!-- Exam Container -->
+    <div class="max-w-4xl mx-auto pt-24 pb-12 px-6">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl md:text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Mathematics Exam</h1>
+            <p class="text-gray-400 text-lg">Answer all questions to the best of your ability</p>
+        </div>
+
+        <form id="examForm">
+            {% for question in questions %}
+            <div class="question bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6 shadow-lg" data-question-id="{{ question.id }}" data-correct="{{ question.correct }}">
+                <div class="question-text text-xl md:text-2xl font-bold mb-6 text-gray-100">
+                    <span class="text-indigo-400 mr-2">{{ loop.index }}.</span> {{ question.text|safe }}
+                </div>
+                <ul class="options space-y-3">
+                    {% for option in question.options %}
+                    <li class="option-item">
+                        <label class="option-label flex items-center gap-4 p-4 bg-gray-800 border-2 border-gray-700 rounded-xl cursor-pointer hover:bg-gray-750 hover:border-indigo-500 transition-all">
+                            <input type="radio" name="question{{ question.id }}" value="{{ loop.index0 }}" class="w-5 h-5 text-indigo-600 focus:ring-indigo-500 focus:ring-2">
+                            <span class="text-lg text-gray-200">{{ option|safe }}</span>
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+            
+            <button type="submit" class="submit-btn w-full md:w-auto mx-auto block bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-xl shadow-xl transition transform hover:scale-105">
+                Submit Exam
+            </button>
+        </form>
+
+        <!-- Results Modal (Hidden by default) -->
+        <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 max-w-2xl w-full shadow-2xl">
+                <h2 class="text-4xl font-black mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Exam Results</h2>
+                
+                <div class="text-center mb-8">
+                    <div class="inline-block bg-gray-800 rounded-2xl p-8 mb-4">
+                        <div class="text-6xl font-black text-indigo-400" id="finalScore">0</div>
+                        <div class="text-gray-400 text-lg mt-2">out of <span id="totalQuestions">10</span></div>
+                    </div>
+                    <div class="text-2xl font-bold" id="scorePercentage">0%</div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="bg-gray-800 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-green-400" id="correctCount">0</div>
+                        <div class="text-gray-400 text-sm">Correct</div>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-red-400" id="wrongCount">0</div>
+                        <div class="text-gray-400 text-sm">Wrong</div>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-yellow-400" id="skippedCount">0</div>
+                        <div class="text-gray-400 text-sm">Skipped</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="location.reload()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-xl transition">Retake Exam</button>
+                    <a href="/" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition text-center">Back to Menu</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        document.getElementById('examForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Exam submitted! (Add scoring logic here)');
+        // Store correct answers
+        const correctAnswers = {};
+        document.querySelectorAll('.question').forEach(q => {
+            const id = q.dataset.questionId;
+            const correct = parseInt(q.dataset.correct);
+            correctAnswers[id] = correct;
         });
     </script>
+    <script src="{{ url_for('static', filename='exam.js') }}"></script>
 </body>
 </html>

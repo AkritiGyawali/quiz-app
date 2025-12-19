@@ -38,7 +38,7 @@ SCORE_WRONG = -5
 # Serve static files
 @app.route('/')
 def index():
-    return send_from_directory('.', 'index.html')
+    return render_template('index.html')
 
 @app.route('/exam')
 def exam():
