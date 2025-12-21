@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Exam - Quiz Master</title>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -31,6 +32,10 @@
                 <a href="/" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Multiplayer Mode</a>
                 <a href="/exam" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition font-semibold">Exam Mode</a>
             </div>
+
+            
+
+<button onclick="downloadPDF()">Download Report as PDF</button>
         </div>
     </nav>
 
@@ -111,5 +116,8 @@
         });
     </script>
     <script src="{{ url_for('static', filename='exam.js') }}"></script>
+
+
+    
 </body>
 </html>
