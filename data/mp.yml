@@ -1,0 +1,845 @@
+- id: 1
+  text: |
+    An atom has filled $n=1$ and $n=2$ level: How many electron does atom have?
+  options:
+    - 2
+    - 4
+    - 10
+    - 8
+  correct: 2
+
+- id: 2
+  text: |
+    X-ray of wavelength $\lambda=0.25\text{nm}$ are incident on face of crystal at angle $\theta$, measured from crystal surface smallest angle. that yields an intense reflected beam is $\theta=14.5^{\circ}$. Which of following gives value of interplanar spacing d? (Sin 14.5 = 1/4)
+  options:
+    - 0.125nm
+    - 0.500nm
+    - 0.625nm
+    - 0.750nm
+  correct: 1
+
+
+
+- id: 3
+  text: |
+    In bohr model of hydrogen atom, linear momentum of electron at radius $r_{n}$ is given by which of following? (n is principal quantum member)
+  options:
+    - nh
+    - $\frac{n\hbar}{r_{n}}$
+    - $n^{2}r_{n}\hbar$
+    - $\frac{n^{2}\hbar}{r_{n}}$
+  correct: 2
+
+- id: 4
+  text: |
+    Which of following expression is proportional to total energy for level of one electron Bohr atom?
+  options:
+    - $\frac{mZe^{2}}{n}$
+    - $\frac{mZe^{2}}{n^{2}}$
+    - $\frac{mZ^{2}e^{4}}{n^{2}}$
+    - $\frac{m^{2}Z^{2}e^{4}}{n^{2}}$
+  correct: 2
+
+- id: 5
+  text: |
+    True statement about absorption and emission of energy by atom include which of following?
+    I. An atom can only absorb photons of light that have certain specific energies.
+    II. An atom can emit photons of light of any energy.
+    III. At low temperature, lines in the absorption spectrum of an atom coincide with lines in its emission spectrum that represent transitions to the ground state.
+  options:
+    - I only
+    - III only
+    - I and III only
+    - I, II and III
+  correct: 1
+
+- id: 6
+  text: |
+    Imagine replacing the electron in a hydrogen atom with a muon ($m_{\mu}=207m_{e}$). What are energy level $E_{n}$ for this new form of hydrogen in term of binding energy of ordinary hydrogen $E_{0}$, mass of proton $m_{p}$ and principal quantum number n?
+  options:
+    - $E_{n}=-\frac{E_{0}}{n^{2}}(\frac{m_{\mu}}{m_{e}})$
+    - $E_{n}=-\frac{E_{0}}{n^{2}}(\frac{m_{e}}{m_{\mu}})$
+    - $E_{n}=-\frac{E_{0}}{n^{2}}[\frac{(m_{p}+m_{e})}{(m_{p}+m_{\mu})}]$
+    - $E_{n}=-\frac{E_{0}}{n^{2}}[\frac{m_{\mu}(m_{p}+m_{e})}{m_{e}(m_{p}+m_{\mu})}]$
+  correct: 3
+
+- id: 7
+  text: |
+    In the compton effect, a photon with energy E scatters through a $90^{\circ}$ angle from a stationary electron of mass m. The energy of scattered photon is
+  options:
+    - E
+    - $\frac{E^{2}}{E+mc^{2}}$
+    - $\frac{Emc^{2}}{E+mc^{2}}$
+    - $\frac{E^{2}}{mc^{2}}$
+  correct: 2
+
+- id: 8
+  text: |
+    The longest wavelength x-ray that can undergo bragg diffraction in a crystal for a given family of planes of spacing d is
+  options:
+    - d/4
+    - d/2
+    - 2d
+    - 4d
+  correct: 2
+
+- id: 9
+  text: |
+    The ratio of energy of K characteristic X-ray of carbon (Z=6) to those of magnesium (Z=12) is most nearly
+  options:
+    - 1/4
+    - 1/2
+    - 1
+    - 2
+  correct: 0
+
+- id: 10
+  text: |
+    Given the binding energy of a hydrogen atom in the ground state is $E_{0}=13.6\text{eV}$. The binding energy of the n=2 state of positronium (positron-electron system) is
+  options:
+    - $8E_{0}$
+    - $4E_{0}$
+    - $E_{0}$
+    - $E_{0}/8$
+  correct: 3
+
+- id: 11
+  text: |
+    In the 3s state of a helium atom, possible value of the total electronic angular momentum quantum number are
+  options:
+    - 0 only
+    - 1 only
+    - 0 and 1 only
+    - 0, 1 and 2
+  correct: 1
+
+- id: 12
+  text: |
+    The ground state configuration of a neutral sodium atom (Z=11) is
+  options:
+    - $1s^{2} 2s^{2} 2p^{5} 3s^{2}$
+    - $1s^{2} 2s^{3} 2p^{6}$
+    - $1s^{2} 2s^{2} 2p^{6} 3s^{1}$
+    - $1s^{2} 2s^{2} 2p^{5}$
+  correct: 2
+
+- id: 13
+  text: |
+    The ground state of the helium atom is spin
+  options:
+    - singlet
+    - doublet
+    - triplet
+    - quartet
+  correct: 0
+
+- id: 14
+  text: |
+    Configuration of a three electron system is 1s 2p 3p. Which of following is the value of its maximum possible total angular momentum quantum number?
+  options:
+    - 5/2
+    - 3
+    - 7/2
+    - 3/2
+  correct: 0
+
+- id: 15
+  text: |
+    A beam of electrons is accelerated through a potential difference of 25kV in an X-ray tube. The continuous X-ray spectrum emitted will have short wavelength limit of most nearly
+  options:
+    - $0.1\text{\AA}$
+    - $0.5\text{\AA}$
+    - $2\text{\AA}$
+    - $25\text{\AA}$
+  correct: 1
+
+- id: 16
+  text: |
+    Spacing of rotational energy level for the hydrogen molecule $H_{2}$ is most nearly
+  options:
+    - $10^{-9}\text{eV}$
+    - $10^{-3}\text{eV}$
+    - $10\text{eV}$
+    - $10\text{MeV}$
+  correct: 1
+
+- id: 17
+  text: |
+    Energy levels of a hydrogen atom are given in terms of principal quantum member n and positive constant A by the expression
+  options:
+    - A(n + 1/2)
+    - $An^{2}$
+    - $-A/n^{2}$
+    - $A(1-n^{2})$
+  correct: 2
+
+- id: 18
+  text: |
+    A nickel target (Z=28) is bombarded with fast electrons. The minimum electron K.E. needed to produce X-rays in the K series is most nearly
+  options:
+    - 10 eV
+    - 100 eV
+    - 10,000 eV
+    - 100,000 eV
+  correct: 2
+
+- id: 19
+  text: |
+    The hypothesis that an electron possesses spin is qualitatively significant for the explanation of all following topics EXCEPT
+  options:
+    - anomalous zeeman effect
+    - deflection of a moving electron by a uniform magnetic field
+    - fine structure of atomic spectra
+    - none of above
+  correct: 1
+
+- id: 20
+  text: |
+    The configuration of a potassium atom in its ground state is $1s^{2} 2s^{2} 2p^{6} 3s^{2} 3p^{6} 4s^{1}$. Which of the following statement about potassium is true?
+  options:
+    - Its n=3 shell is completely filled
+    - Its atomic number is 17
+    - Its 4s subshell is completely filled
+    - Its electron charge distribution is spherically symmetrical
+  correct: 3
+
+- id: 21
+  text: |
+    Franck-Hertz experiment and related scattering experiment show that
+  options:
+    - electron are always scattered elastically from atoms
+    - electron are never scattered elastically from atoms
+    - there is no energy range in which energy lost by electron varies continuously
+    - electron of certain energy range can be scattered inelastically and energy lost by electron is discrete
+  correct: 3
+
+- id: 22
+  text: |
+    sodium has eleven electron and sequence in which energy level fill in atom is 1s, 2s, 2p, 3s, 3p, 4s, 3d etc. What is the ground state of sodium in usual notation $2^{s+1}L_{J}$?
+  options:
+    - $^{1}S_{0}$
+    - $^{2}S_{1/2}$
+    - $^{2}P_{0}$
+    - $^{2}P_{1/2}$
+  correct: 1
+
+- id: 23
+  text: |
+    What is ground state binding energy of positronium? (Ground state binding energy of hydrogen is 13.6 eV)
+  options:
+    - $(\frac{1}{2})^{2} \times 13.6\text{eV}$
+    - $\frac{1}{2} \times 13.6\text{eV}$
+    - 13.6 eV
+    - $2 \times 13.6\text{eV}$
+  correct: 1
+
+- id: 24
+  text: |
+    A beam of neutral hydrogen atoms in their ground state passes through a region of strong inhomogeneous magnetic field. After the beam passes through this field, a detector would find that it has been
+  options:
+    - deflected upward
+    - undeviated
+    - split vertically into two beams
+    - deflected to the right
+  correct: 2
+
+- id: 25
+  text: |
+    Ground state energy of positronium is most nearly equal to
+  options:
+    - -27.2 eV
+    - -13.6 eV
+    - -6.8 eV
+    - -3.4 eV
+  correct: 2
+
+- id: 26
+  text: |
+    If an alpha particle with initial K.E. of 5 MeV is scattered through an angle of $180^{\circ}$, what is its distance of closest approach to the scattering nucleus (Silver, Z=50)
+  options:
+    - $1.22 \times 50^{1/3}\text{fm}$
+    - $2.9 \times 10^{-14}\text{m}$
+    - $1.0 \times 10^{-12}\text{m}$
+    - $3.0 \times 10^{-12}\text{m}$
+  correct: 1
+
+- id: 27
+  text: |
+    Which of following atom has lowest ionization potential?
+  options:
+    - $^{4}_{2}\text{He}$
+    - $^{14}_{7}\text{N}$
+    - $^{40}_{18}\text{Ar}$
+    - $^{133}_{55}\text{Cs}$
+  correct: 3
+
+- id: 28
+  text: |
+    Energy required to remove both electron from helium atom in its ground state is 79.0 eV. How much energy is required to ionize helium (i.e. to remove one electron)
+  options:
+    - 24.6 eV
+    - 39.5 eV
+    - 51.8 eV
+    - 65.4 eV
+  correct: 0
+
+- id: 29
+  text: |
+    In hydrogen spectrum, ratio of wavelength for Lyman-$\alpha$ radiation (n=2 to n=1) to Balmer-$\alpha$ radiation (n=3 to n=2) is
+  options:
+    - 5/48
+    - 5/27
+    - 1/3
+    - 3
+  correct: 1
+
+- id: 30
+  text: |
+    In the production of X-ray, the term "bremsstrahlung" refers to which of following?
+  options:
+    - Cut off wavelength, $\lambda_{min}$, of X-ray tube spectra
+    - Smooth, continuous X-ray produced by high energy black body radiation
+    - Smooth, continuous X-ray spectra produced by rapidly decelerating electrons in the target metal
+    - Discrete X-ray lines emitted when an outer orbit electron fills an inner orbit vacancy
+  correct: 2
+
+- id: 31
+  text: |
+    If a positronium atom makes a transition from state with n=3 to state n=1, the energy of photon emitted is closest to
+  options:
+    - 6.0 eV
+    - 6.8 eV
+    - 12.2 eV
+    - 24.2 eV
+  correct: 0
+
+- id: 32
+  text: |
+    In the energy level diagram of atomic hydrogen (including spin-orbit coupling), which transition are possible electric dipole transition?
+  options:
+    - B only
+    - C only
+    - B and C only
+    - A, B and C
+  correct: 2
+
+- id: 33
+  text: |
+    Which of following is NOT compatible with selection rule that control electric dipole emission of photons by excited states of atoms?
+  options:
+    - $\Delta n$ may have any integral value
+    - $\Delta l = \pm 1$
+    - $\Delta s = \pm 1$
+    - $\Delta j = 0, \pm 1$
+  correct: 2
+
+- id: 34
+  text: |
+    The wave function for identical fermions is antisymmetric under particle interchange. Which of following is consequence of this property?
+  options:
+    - Pauli exclusion principle
+    - Bohr correspondence principle
+    - Heisenberg uncertainty principle
+    - Bose-Einstein condensation
+  correct: 0
+
+- id: 35
+  text: |
+    Ground state electron configuration for phosphorus (Z=15) is
+  options:
+    - $1s^{2} 2s^{2} 2p^{6} 3s^{1} 3p^{4}$
+    - $1s^{2} 2s^{2} 2p^{6} 3s^{2} 3p^{3}$
+    - $1s^{2} 2s^{2} 2p^{6} 3s^{2} 3d^{3}$
+    - $1s^{2} 2s^{2} 2p^{6} 3p^{2} 3d^{3}$
+  correct: 1
+
+- id: 36
+  text: |
+    Which property of Hydrogen atom can be predicted most accurately from simple bohr model?
+  options:
+    - Energy differences between states
+    - selection rules for transitions
+    - degeneracy of states
+    - angular momentum of ground state
+  correct: 0
+
+- id: 37
+  text: |
+    Innermost orbit of hydrogen atom has diameter of $1.06\text{\AA}$. The diameter of $10^{th}$ orbit is
+  options:
+    - $5.3\text{\AA}$
+    - $10.6\text{\AA}$
+    - $53\text{\AA}$
+    - $106\text{\AA}$
+  correct: 3
+
+- id: 38
+  text: |
+    In head on collision between $\alpha$-particle and gold nucleus (Z=79), distance of closest approach is 41.3 fm. Energy of $\alpha$-particle in MeV is
+  options:
+    - 4.28 MeV
+    - 3.61 MeV
+    - 5.50 MeV
+    - 1.2 MeV
+  correct: 2
+
+- id: 39
+  text: |
+    In which region of electromagnetic spectrum does Lyman series of hydrogen atom lie?
+  options:
+    - Ultraviolet
+    - Infrared
+    - Visible
+    - Microwave
+  correct: 0
+
+- id: 40
+  text: |
+    Lines of which series are found in visible region?
+  options:
+    - Lyman
+    - Balmer
+    - Paschen
+    - Brackett
+  correct: 1
+
+- id: 41
+  text: |
+    There are discrete energy levels in atoms. It was first experimentally demonstrated by
+  options:
+    - Rutherford's experiment
+    - Franck-Hertz experiment
+    - Marsden's experiment
+    - Sommerfeld experiment
+  correct: 1
+
+- id: 42
+  text: |
+    Elliptical orbits in atom were proposed by
+  options:
+    - J. J. Thomson
+    - Bohr
+    - Sommerfeld
+    - de-Broglie
+  correct: 2
+
+- id: 43
+  text: |
+    Which of following lines of Balmer series has longest wavelength?
+  options:
+    - $H_{\alpha}$-line
+    - $H_{\beta}$-line
+    - $H_{\gamma}$-line
+    - Series limit line
+  correct: 0
+
+- id: 44
+  text: |
+    The difference in angular momentum associated with electron in two successive orbits of hydrogen is
+  options:
+    - $h/\pi$
+    - $h/2\pi$
+    - h/2
+    - $(n-1)h/2\pi$
+  correct: 1
+
+- id: 45
+  text: |
+    According to Pauli's principle, for two electron in atom, which of following cannot be equal?
+  options:
+    - n
+    - l
+    - l and $m_{l}$
+    - all four quantum numbers
+  correct: 3
+
+- id: 46
+  text: |
+    In terms of Rydberg constant R, wave number of first Balmer line is
+  options:
+    - R
+    - 3R/4
+    - 5R/36
+    - 8R/9
+  correct: 2
+
+- id: 47
+  text: |
+    For hydrogen atom in d-state, possible value of $m_{l}$ are
+  options:
+    - 0, 1, 2
+    - -1, 0, +1
+    - -2, -1, 0, 1, 2
+    - -3, -2, -1, 0, 1, 2, 3
+  correct: 2
+
+- id: 48
+  text: |
+    For hydrogen atom in p-state, possible value of j are
+  options:
+    - 1/2, 3/2, 5/2
+    - 1/2, 3/2
+    - -1/2, +1/2, -3/2, +3/2
+    - -1/2, -3/2
+  correct: 1
+
+- id: 49
+  text: |
+    Considering transition between n=2 and n=1, shortest wavelength is produced by
+  options:
+    - Hydrogen atom
+    - deuterium atom
+    - singly ionized helium
+    - doubly ionized lithium
+  correct: 3
+
+- id: 50
+  text: |
+    Dimensions of Rydberg constant are
+  options:
+    - $[M^{0}L^{-1}T^{0}]$
+    - $[M^{0}L^{1}T]$
+    - $[M^{0}L^{0}T^{-2}]$
+    - $[ML^{1}T]$
+  correct: 0
+
+- id: 51
+  text: |
+    According to Sommerfeld atomic model, how many elliptical and circular orbits are there for n=3?
+  options:
+    - 3 circular and no elliptical
+    - 1 circular and 2 elliptical
+    - 2 circular and 1 elliptical
+    - 3 elliptical and no circular
+  correct: 1
+
+- id: 52
+  text: |
+    Speed of electron in first Bohr orbit is c/137. speed of electron in third Bohr orbit of hydrogen will be
+  options:
+    - c/137
+    - 3c/137
+    - c/3x137
+    - 9c/137
+  correct: 2
+
+- id: 53
+  text: |
+    The first nuclear atom model was given by
+  options:
+    - J.J. Thomson
+    - Rutherford
+    - Bohr
+    - Sommerfeld
+  correct: 1
+
+- id: 54
+  text: |
+    The spin angular momentum of electron is
+  options:
+    - $h/2\pi$
+    - $h/4\pi$
+    - $\sqrt{2}h/4\pi$
+    - $\sqrt{3}h/4\pi$
+  correct: 3
+
+- id: 55
+  text: |
+    If E is total energy of electron in ground state of hydrogen then kinetic energy K and potential energy V will be
+  options:
+    - K = -E, V = -V
+    - K = -V, V = -E/2
+    - K = -E, V = 2E
+    - K = E, V = V/2
+  correct: 2
+
+- id: 56
+  text: |
+    When an electron in atom goes from lower to higher orbit its
+  options:
+    - K.E. increases, P.E. decreases
+    - K.E. decreases, P.E. increases
+    - K.E. and P.E. both increase
+    - K.E. and P.E. both decrease
+  correct: 1
+
+- id: 57
+  text: |
+    The plot of speed of electron v as function of principal quantum number n is
+  options:
+    - straight line through origin
+    - rectangular hyperbola
+    - parabola
+    - exponential decay
+  correct: 1
+
+- id: 58
+  text: |
+    According to bohr theory ratio of time taken by electron to complete one revolution in first excited and second excited state of hydrogen is
+  options:
+    - 1:8
+    - 8:27
+    - 1:27
+    - 4:9
+  correct: 1
+
+- id: 59
+  text: |
+    Rydberg constant is
+  options:
+    - same for all elements
+    - different for different elements
+    - a universal constant
+    - different for light element and same for heavier element
+  correct: 1
+
+- id: 60
+  text: |
+    If mass of electron is reduced to half, Rydberg constant
+  options:
+    - remain unchanged
+    - is doubled
+    - is halved
+    - is quadrupled
+  correct: 2
+
+- id: 61
+  text: |
+    First excitation potential of hydrogen atom is
+  options:
+    - -13.6 eV
+    - -3.4 eV
+    - 10.2 eV
+    - 4.6 eV
+  correct: 2
+
+- id: 62
+  text: |
+    Numerical value of fine structure constant $\alpha$ is
+  options:
+    - 137
+    - 1/237
+    - 1/137
+    - 237
+  correct: 2
+
+- id: 63
+  text: |
+    Transition $^{2}P_{1/2} \rightarrow ^{2}S_{1/2}$ results in
+  options:
+    - $D_{1}$ line
+    - $D_{2}$ line
+    - both $D_{1}$ and $D_{2}$ lines
+    - none
+  correct: 0
+
+- id: 64
+  text: |
+    Value of Zeeman shift $d\lambda$ is
+  options:
+    - $\frac{Be\lambda}{4\pi mc}$
+    - $\frac{Be\lambda^{2}}{4\pi mc}$
+    - $\frac{Be\lambda^{2}}{4\pi mc^{2}}$
+    - $\frac{Be}{4\pi\lambda mc}$
+  correct: 1
+
+- id: 65
+  text: |
+    In normal Zeeman effect magnetic induction $1Wb/m^{2}$ wavelength separation for $6000\text{\AA}$ line is
+  options:
+    - $0.1335\text{\AA}$
+    - $0.242\text{\AA}$
+    - $0.168\text{\AA}$
+    - $0.1948\text{\AA}$
+  correct: 2
+
+- id: 66
+  text: |
+    Normal Zeeman effect occur only in atom with
+  options:
+    - even number of electrons
+    - odd number of electron
+    - both even and odd
+    - even parity
+  correct: 0
+
+- id: 67
+  text: |
+    Precessional frequency of electron orbit placed in magnetic field of 5 T is
+  options:
+    - $4 \times 10^{10} \text{Hz}$
+    - $7 \times 10^{10} \text{Hz}$
+    - $8 \times 10^{9} \text{Hz}$
+    - $6 \times 10^{10} \text{Hz}$
+  correct: 1
+
+- id: 68
+  text: |
+    5 MeV alpha particle approach a gold nucleus with impact parameter $2.6 \times 10^{-13}\text{m}$ angle of scattering is
+  options:
+    - $20^{\circ}$
+    - $10^{\circ}$
+    - $5^{\circ}$
+    - $30^{\circ}$
+  correct: 1
+
+- id: 69
+  text: |
+    A beam of electron enters a uniform magnetic field of 1.2 T. Energy difference between electron whose spin are parallel and anti parallel to field is
+  options:
+    - $1.39 \times 10^{-4}\text{eV}$
+    - $4.62 \times 10^{-7}\text{eV}$
+    - $6.93 \times 10^{-4}\text{eV}$
+    - $1.268 \times 10^{-7}\text{eV}$
+  correct: 0
+
+- id: 70
+  text: |
+    At what speed electron must revolve around nucleus of hydrogen atom so it may not be pull in nucleus
+  options:
+    - $1.28 \times 10^{6} \text{m/s}$
+    - $2.25 \times 10^{6} \text{m/s}$
+    - $3.00 \times 10^{6} \text{m/s}$
+    - $0.48 \times 10^{6} \text{m/s}$
+  correct: 1
+
+- id: 71
+  text: |
+    The path followed by $\alpha$-particle in scattering experiment is
+  options:
+    - parabolic
+    - elliptical
+    - hyperbolic
+    - circular
+  correct: 2
+
+- id: 72
+  text: |
+    D-lines of sodium spectrum correspond to
+  options:
+    - principal series
+    - diffuse series
+    - fundamental series
+    - none of these
+  correct: 0
+
+- id: 73
+  text: |
+    In Zeeman effect we apply
+  options:
+    - external electric field only
+    - external magnetic field only
+    - both electric and magnetic field right angle
+    - neither electric nor magnetic field
+  correct: 1
+
+- id: 74
+  text: |
+    A level of given 'l' split in how many level in normal Zeeman effect
+  options:
+    - l
+    - 2l
+    - 2l-1
+    - 2l+1
+  correct: 3
+
+- id: 75
+  text: |
+    Normal Zeeman effect occurs for spectral lines produced by transition between
+  options:
+    - singlet states
+    - doublet states
+    - triplet states
+    - none of these
+  correct: 0
+
+- id: 76
+  text: |
+    Lande g-factor can be represented as
+  options:
+    - $g = 1 + \frac{J(J+1)+S(S+1)-L(L+1)}{2J(J+1)}$
+    - $g = 1 + \frac{2J(J+1)+S(S+1)-L(L+1)}{J(J+1)}$
+    - $g = 1 + \frac{J(J+1)+2S(S+1)-L(L+1)}{2J(J+1)}$
+    - $g = 1 + \frac{J(J+1)+S(S+1)-L(L+1)}{2J(J+1)}$
+  correct: 0
+
+- id: 77
+  text: |
+    Which statement is correct regarding anomalous Zeeman effect?
+  options:
+    - splitting of spectral line in 3 component
+    - shown by elements with even number of electron
+    - spin magnetic moment of atom must be zero
+    - splitting of spectral line in more than 3 component
+  correct: 3
+
+- id: 78
+  text: |
+    Which of these element H, He, Li, Mg and Na might exhibit normal zeeman effect?
+  options:
+    - H, He
+    - Li, Na
+    - He, Mg
+    - H, Mg
+  correct: 2
+
+- id: 79
+  text: |
+    Lande g-factor for level 3D is
+  options:
+    - 2/3
+    - 3/2
+    - 3/4
+    - 4/1
+  correct: 0
+
+- id: 80
+  text: |
+    Compton scattering from electron is most easily observed in
+  options:
+    - X-ray
+    - U.V. ray
+    - visible ray
+    - none of these
+  correct: 0
+
+- id: 81
+  text: |
+    In graph of $(K.E)_{max}$ and frequency in photoelectric effect the slope represents
+  options:
+    - e
+    - h (planck constants)
+    - $(K_{0})$ Boltzmann constant
+    - none of these
+  correct: 1
+
+- id: 82
+  text: |
+    A photon collides with an electron then after collision wavelength of scattered photon is
+  options:
+    - equal to initial wavelenth
+    - less than initial wavelenfgth
+    - greater or equal to initial wavelength
+    - less than or equal to initial wavelength
+  correct: 2
+
+- id: 83
+  text: |
+    Which one of following types of hot body radiation requires highest temperature?
+  options:
+    - blue
+    - red
+    - yellow
+    - Green
+  correct: 0
+
+- id: 84
+  text: |
+    A person's skin temperature is 37°C maximum wavelength that it emits is
+  options:
+    - 9.45 µm
+    - 17.8µm
+    - 24.5µm
+    - 1.34µm
+
+  correct: 0

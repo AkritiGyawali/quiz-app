@@ -6,21 +6,33 @@ import random
 import time
 import threading
 import os
+import argparse
 from typing import Dict, Any
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
+
 # Load questions from file
 questions_data = []
+
+
+parser = argparse.ArgumentParser(description='Real-time Quiz Game Server')
+parser.add_argument('--file', type=str, default='math.yaml', help='Questions file to load (YAML format)')
+parser.add_argument('--min', type=int, default=1, help='Minimum question ID to include')
+parser.add_argument('--max', type=int, default=10, help='Maximum question ID to include')
+args = parser.parse_args()
+
+QNS_FILE = args.file  # Change to desired file path
+
 try:
     # JSON format
     # with open(os.path.join(os.path.dirname(__file__), 'data', 'gk_sansthan.json'), 'r', encoding='utf-8') as f:
     #     questions_data = json.load(f)
     
     # YAML format
-    with open(os.path.join(os.path.dirname(__file__), 'data', 'math.yaml'), 'r', encoding='utf-8') as f:
+    with open(os.path.join(os.path.dirname(__file__), 'data', QNS_FILE), 'r', encoding='utf-8') as f:
         questions_data = yaml.safe_load(f)
     
     print(f"Loaded {len(questions_data)} questions.")
@@ -34,6 +46,10 @@ rooms: Dict[str, Dict[str, Any]] = {}
 QUESTION_TIME = 15
 SCORE_CORRECT = 5
 SCORE_WRONG = -5
+MIN = args.min
+MAX = args.max
+
+
 
 # Serve static files
 @app.route('/')
@@ -43,7 +59,7 @@ def index():
 @app.route('/exam')
 def exam():
     # Load questions from math.yaml for exam mode
-    with open(os.path.join(os.path.dirname(__file__), 'data', 'math.yaml'), 'r', encoding='utf-8') as f:
+    with open(os.path.join(os.path.dirname(__file__), 'data', QNS_FILE), 'r', encoding='utf-8') as f:
         questions = yaml.safe_load(f)
     return render_template('exam.html', questions=questions)
 
@@ -135,7 +151,7 @@ def handle_host_start_game(data):
     print(f"Game mode: {room['gameMode']}, Auto delay: {room['autoDelay']}s")
 
     # Filter questions with ID 5 to 10
-    room['gameQuestions'] = [q for q in questions_data if 5 <= q['id'] <= 10]
+    room['gameQuestions'] = [q for q in questions_data if MIN <= q['id'] <= MAX]
 
     # Fallback: If filter finds nothing, load all questions
     if len(room['gameQuestions']) == 0:
