@@ -1,12 +1,12 @@
 from flask import Flask, send_from_directory, request, render_template
 from flask_socketio import SocketIO, emit, join_room, leave_room
-import json
+#import json  # needed only for json question files
 import yaml
 import random
 import time
 import threading
 import os
-import argparse
+# import argparse
 from typing import Dict, Any
 
 app = Flask(__name__)
@@ -18,13 +18,15 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 questions_data = []
 
 
-parser = argparse.ArgumentParser(description='Real-time Quiz Game Server')
-parser.add_argument('--file', type=str, default='math.yaml', help='Questions file to load (YAML format)')
-parser.add_argument('--min', type=int, default=1, help='Minimum question ID to include')
-parser.add_argument('--max', type=int, default=10, help='Maximum question ID to include')
-args = parser.parse_args()
+# for developer mode
+# parser = argparse.ArgumentParser(description='Real-time Quiz Game Server')
+# parser.add_argument('--file', type=str, default='math.yaml', help='Questions file to load (YAML format)')
+# parser.add_argument('--min', type=int, default=1, help='Minimum question ID to include')
+# parser.add_argument('--max', type=int, default=10, help='Maximum question ID to include')
+# args = parser.parse_args()
 
-QNS_FILE = args.file  # Change to desired file path
+# QNS_FILE = args.file
+QNS_FILE = os.environ.get('QNS_FILE', 'math.yaml')  # Change to desired file path
 
 try:
     # JSON format
@@ -46,8 +48,12 @@ rooms: Dict[str, Dict[str, Any]] = {}
 QUESTION_TIME = 15
 SCORE_CORRECT = 5
 SCORE_WRONG = -5
-MIN = args.min
-MAX = args.max
+MIN = int(os.environ.get('QNS_MIN', 1))
+MAX = int(os.environ.get('QNS_MAX', 10))
+
+# For developer mode
+# MIN = args.min
+# MAX = args.max
 
 
 
@@ -55,6 +61,10 @@ MAX = args.max
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html')
 
 @app.route('/exam')
 def exam():
@@ -518,6 +528,6 @@ def end_game(room_code):
     socketio.emit('game_over', {'players': room['players']}, to=room_code)
 
 if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3000))
+    PORT = int(os.environ.get('PORT', 8000))
     print(f"Server running on port {PORT}")
-    socketio.run(app, host='0.0.0.0', port=PORT, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host='0.0.0.0', port=PORT, allow_unsafe_werkzeug=True)

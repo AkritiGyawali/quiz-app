@@ -3,217 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizMaster Node</title>
+    <title>Quiz Master - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-gray-950 text-white font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body class="bg-gray-950 text-white font-sans min-h-screen selection:bg-indigo-500 selection:text-white">
 
     <!-- --- NAVIGATION BAR --- -->
     <nav class="bg-gray-900 border-b border-gray-800 px-6 py-4 fixed w-full top-0 z-50 backdrop-blur-sm bg-opacity-90">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">QUIZ MASTER</div>
-            <div class="flex gap-4">
-                <a href="/" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Multiplayer Mode</a>
-                <a href="/exam" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition font-semibold">Exam Mode</a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex gap-4">
+                <a href="/quiz" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Multiplayer Mode</a>
+                <a href="/exam" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Exam Mode</a>
+                <a href="#contact" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Contact</a>
+            </div>
+            
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col gap-3">
+                <a href="/quiz" class="px-4 py-3 rounded-lg hover:bg-gray-800 transition font-semibold text-center bg-gray-800">Multiplayer Mode</a>
+                <a href="/exam" class="px-4 py-3 rounded-lg hover:bg-gray-800 transition font-semibold text-center bg-gray-800">Exam Mode</a>
+                <a href="#contact" class="px-4 py-3 rounded-lg hover:bg-gray-800 transition font-semibold text-center bg-gray-800">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- --- MAIN MENU --- -->
-    <div id="view-menu" class="view-section flex flex-col items-center justify-center min-h-screen p-4 pt-20">
-        <h1 class="text-7xl md:text-9xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 tracking-tighter text-center">QUIZ<br>MASTER</h1>
-        <p class="text-2xl text-gray-400 mb-12 text-center">Real-time Multiplayer Trivia</p>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center px-4 pt-20">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4
+           text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500
+           tracking-tight text-center leading-tight">
+    Quiz<br>Master
+</h1>
+
+        <p class="text-2xl md:text-3xl text-gray-400 mb-12 text-center max-w-3xl">
+          Knowledge isn't boring — you’re just playing it wrong.    
+        </p>
+        <br> 
         
-        <div class="flex flex-col md:flex-row gap-6 w-full max-w-2xl">
-            <button id="btn-menu-host" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white text-2xl font-bold py-8 rounded-2xl shadow-lg transition transform hover:-translate-y-1">Host Game</button>
-            <button id="btn-menu-join" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white text-2xl font-bold py-8 rounded-2xl shadow-lg transition transform hover:-translate-y-1">Join Game</button>
-        </div>
-    </div>
+        </br>
+    <div class="flex flex-col md:flex-row gap-4 w-full max-w-xl mb-12">
+    <a href="/quiz"
+       class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white
+              text-lg md:text-xl font-semibold
+              py-4 md:py-6
+              rounded-xl shadow-md
+              transition transform hover:-translate-y-0.5 text-center">
+        Multiplayer Mode
+    </a>
 
-    <!-- --- HOST LOBBY --- -->
-    <div id="view-host-lobby" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20">
-        <div class="bg-gray-900 p-10 rounded-3xl border border-gray-800 text-center w-full max-w-4xl shadow-2xl">
-            <p class="text-gray-500 uppercase tracking-widest font-bold mb-2">Room Code</p>
-            <div id="host-room-code" class="text-8xl font-mono font-black text-white mb-10 tracking-widest">---</div>
+    <a href="/exam"
+       class="flex-1 bg-purple-600 hover:bg-purple-500 text-white
+              text-lg md:text-xl font-semibold
+              py-4 md:py-6
+              rounded-xl shadow-md
+              transition transform hover:-translate-y-0.5 text-center">
+        Exam Mode
+    </a>
+</div>
+
+
+        <!-- Features -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full mb-20">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+                <div class="text-5xl mb-4">🎮</div>
+                <h3 class="text-xl font-bold mb-3">Real-time Multiplayer</h3>
+                <p class="text-gray-400">Compete with friends in live quiz battles with instant scoring</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+                <div class="text-5xl mb-4">📝</div>
+                <h3 class="text-xl font-bold mb-3">Exam Practice</h3>
+                <p class="text-gray-400">Test your knowledge with comprehensive exam-style questions</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+                <div class="text-5xl mb-4">🏆</div>
+                <h3 class="text-xl font-bold mb-3">Leaderboards</h3>
+                <p class="text-gray-400">Track your progress and climb to the top of the rankings</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen flex flex-col items-center justify-center px-4 py-20 bg-gray-900/50">
+        <div class="max-w-4xl w-full">
+            <h2 class="text-5xl md:text-6xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 text-center">
+                About Us
+            </h2>
             
-            <div class="mb-10">
-                <h3 class="text-2xl font-bold mb-4">Players Joined: <span id="host-player-count">0</span></h3>
-                <div id="host-player-list" class="flex flex-wrap justify-center gap-3">
-                    <!-- Player badges go here -->
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-10 mb-8">
+                <p class="text-xl text-gray-300 leading-relaxed mb-6">
+                    Quiz Master is an interactive learning platform designed to make education engaging and fun. 
+                    Whether you're studying for exams or competing with friends, we provide the tools to test 
+                    your knowledge in an exciting, real-time environment.
+                </p>
+                <p class="text-xl text-gray-300 leading-relaxed mb-6">
+                    Our platform features two distinct modes:
+                </p>
+                <ul class="space-y-4 text-lg text-gray-300 ml-6">
+                    <li class="flex items-start gap-3">
+                        <span class="text-indigo-400 font-bold">•</span>
+                        <span><strong class="text-white">Multiplayer Mode:</strong> Host or join quiz rooms with friends, 
+                        answer questions in real-time, and see who comes out on top with live leaderboards and instant feedback.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-indigo-400 font-bold">•</span>
+                        <span><strong class="text-white">Exam Mode:</strong> Practice at your own pace with comprehensive 
+                        exam-style questions, detailed result analysis, and downloadable performance reports.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-10">
+                <h3 class="text-3xl font-bold mb-6 text-indigo-400">Our Mission</h3>
+                <p class="text-xl text-gray-300 leading-relaxed">
+                    We believe learning should be interactive, competitive, and accessible to everyone. 
+                    Our mission is to transform traditional studying into an engaging experience that motivates 
+                    learners to improve their knowledge while having fun. With support for mathematical equations, 
+                    diverse question formats, and real-time interaction, Quiz Master is your ultimate learning companion.
+                </p>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-10">
+                <h3 class="text-3xl font-bold mb-6 text-indigo-400">Our Future Plans</h3>
+                <p class="text-xl text-gray-300 leading-relaxed">
+                    We are continuously working to enhance Quiz Master with new features and improvements. 
+                    Upcoming plans include expanding our question database, introducing new game modes, 
+                    and integrating advanced analytics to help users track their learning progress more effectively. 
+                    If we got the supports from you guys, we plan to include all the competitve exams based questions that are mostly prevalent in Nepal, including, but not limited to PSC, TSC, IOE and so on.
+                    Stay tuned for exciting updates as we strive to make Quiz Master the best platform for interactive learning!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <p class="text-2xl font-bold text-gray-200 text-center mb-12">
+    If you are curious to learn about physics and computer stuff, you can visit our other 
+    <a href="https://dokonamlo.netlify.app" target="_blank" rel="noopener noreferrer"
+       class="text-blue-500 underline hover:text-blue-400">
+        site
+    </a>
+</p>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="min-h-[60vh] flex flex-col items-center justify-center px-4 py-20 bg-gray-950">
+        <div class="max-w-4xl w-full">
+            <h2 class="text-5xl md:text-6xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 text-center">
+                Contact Us
+            </h2>
+            
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-10 text-center">
+                <p class="text-xl text-gray-300 leading-relaxed mb-8">
+                    Have any questions, feedback or suggestions for us? We'd love to hear from you! Connect with us on social media.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <!-- Facebook Link -->
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg transition transform hover:scale-105 shadow-lg w-full sm:w-auto justify-center">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        Facebook
+                    </a>
+                    
+                    <!-- LinkedIn Link -->
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition transform hover:scale-105 shadow-lg w-full sm:w-auto justify-center">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+                
+                <div class="mt-8 pt-8 border-t border-gray-800">
+                    <p class="text-gray-400">Or reach out to us via email:</p>
+                    <a href="mailto:infotubegroup7@gmail.com" class="text-indigo-400 hover:text-indigo-300 font-semibold text-lg">infotubegroup7@gmail.com</a>
                 </div>
             </div>
-            
-            <!-- Game Mode Selection -->
-            <div class="mb-6 bg-gray-800 p-6 rounded-xl border border-gray-700">
-                <h3 class="text-xl font-bold mb-4">Game Mode</h3>
-                <div class="flex gap-4 items-center justify-center mb-4">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="gameMode" value="manual" id="mode-manual" checked class="w-4 h-4">
-                        <span class="text-lg">Manual (Click Next)</span>
-                    </label>
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="gameMode" value="auto" id="mode-auto" class="w-4 h-4">
-                        <span class="text-lg">Auto Advance</span>
-                    </label>
-                </div>
-                <div id="auto-delay-container" class="hidden">
-                    <label class="block text-sm text-gray-400 mb-2">Auto advance after (seconds):</label>
-                    <input type="number" id="auto-delay" value="5" min="1" max="30" class="w-full bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-lg text-white">
-                </div>
-            </div>
-            
-            <button id="btn-host-start" class="w-full bg-green-600 hover:bg-green-500 text-white text-3xl font-bold py-6 rounded-xl shadow-xl transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>Start Game</button>
         </div>
-    </div>
+    </section>
 
-    <!-- --- PLAYER JOIN --- -->
-    <div id="view-player-join" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20">
-        <div class="bg-gray-900 p-8 rounded-3xl border border-gray-800 w-full max-w-md shadow-2xl">
-            <h2 class="text-4xl font-black mb-8 text-center">Join Game</h2>
-            <form id="form-join" class="space-y-6">
-                <div>
-                    <label class="block text-gray-400 font-bold mb-2 uppercase text-sm">Your Name</label>
-                    <input type="text" id="input-name" class="w-full bg-gray-800 border-2 border-gray-700 rounded-xl p-4 text-xl focus:border-indigo-500 outline-none text-white" required maxlength="12">
-                </div>
-                <div>
-                    <label class="block text-gray-400 font-bold mb-2 uppercase text-sm">Room Code</label>
-                    <input type="number" id="input-code" class="w-full bg-gray-800 border-2 border-gray-700 rounded-xl p-4 text-xl focus:border-indigo-500 outline-none text-white font-mono text-center tracking-widest" required>
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xl font-bold py-4 rounded-xl shadow-lg transition">Enter</button>
-                <button type="button" id="btn-join-back" class="w-full text-gray-500 font-bold py-2 hover:text-white">Back</button>
-            </form>
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-8 px-4 text-center">
+        <div class="max-w-7xl mx-auto">
+            <p class="text-gray-400">© 2025 Quiz Master. All rights reserved.</p>
+            <p class="text-gray-500 mt-2">Built with passion for interactive learning</p>
         </div>
-    </div>
+    </footer>
 
-    <!-- --- PLAYER WAITING --- -->
-    <div id="view-player-waiting" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20 text-center">
-        <div class="bg-gray-900 p-12 rounded-full border-4 border-gray-800 mb-8 animate-pulse">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        </div>
-        <h2 class="text-4xl font-bold mb-2">You're In!</h2>
-        <p class="text-2xl text-gray-400">Waiting for host to start...</p>
-        <p id="player-display-name" class="mt-8 text-indigo-400 font-bold text-xl bg-gray-900 px-6 py-2 rounded-full inline-block">---</p>
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
         
-        <!-- Rules of the game -->
-        <div class="mt-10 max-w-2xl text-left bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <h3 class="text-2xl font-bold mb-4">Game Rules</h3>
-            <ul class="list-disc list-inside space-y-2 text-gray-300">
-                <li>Answer multiple-choice questions as quickly and accurately as possible.</li>
-                <li>Each correct answer awards you 5 points; faster answers earn extra 10 for first, 5 for second and 2 for third fastest correct answerer points.</li>
-                <li>Incorrect answers result in 5 point deductions.</li>
-                <li>You can simply skip the question, for which no points will be deducted.</li>
-                <li>The player with the highest score at the end wins!</li>
-                <li>If two players scores the same, the one with the least total time will be the winner.</li>
-                <li><b>Have fun and good luck!</b></li>
-            </ul>
-        </div>
-    </div>
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+    </script>
 
-    <!-- --- GAME VIEW (SHARED HOST/PLAYER) --- -->
-    <div id="view-game" class="view-section hidden flex-col min-h-screen pt-16">
-        <!-- Top Bar -->
-        <div class="flex justify-between items-center p-6 bg-gray-900/50 border-b border-gray-800 backdrop-blur-sm z-20">
-            <div class="flex items-center gap-4">
-                <span class="text-gray-500 font-bold uppercase tracking-wider text-sm">Question <span id="q-current">1</span>/<span id="q-total">10</span></span>
-                <span id="answer-progress" class="hidden text-indigo-400 font-bold uppercase tracking-wider text-sm ml-4">Answers: <span id="answers-count">0</span>/<span id="total-players">0</span></span>
-            </div>
-            <div class="flex flex-col items-end">
-                 <div id="timer-display" class="text-4xl font-black text-white tabular-nums">15</div>
-                 <div class="text-xs text-gray-500 uppercase font-bold">Seconds</div>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col md:flex-row relative">
-            
-            <!-- Question Area -->
-            <div class="flex-1 flex flex-col p-6 md:p-12 justify-center items-center relative z-10">
-                <h2 id="question-text" class="text-3xl md:text-5xl font-bold text-center leading-tight mb-12 max-w-5xl drop-shadow-md">
-                    Loading Question...
-                </h2>
-                
-                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
-                    <!-- Options injected here -->
-                </div>
-
-                <!-- Host Controls (Only visible to Host) -->
-                <div id="host-controls" class="mt-12 hidden">
-                    <div class="flex flex-col gap-4">
-                        <button id="btn-all-answered" class="hidden bg-yellow-600 hover:bg-yellow-500 text-white px-8 py-3 text-xl font-bold rounded-xl shadow-xl transition flex items-center gap-2 justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                            All Answered - Next Question
-                        </button>
-                        <button id="btn-host-next" class="bg-indigo-600 hover:bg-indigo-500 text-white px-12 py-4 text-2xl font-bold rounded-xl shadow-xl transition flex items-center gap-3">
-                            Next Question
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Player Score Status -->
-                <div id="player-status-bar" class="mt-12 hidden">
-                     <div class="bg-gray-900 border border-gray-800 px-8 py-4 rounded-full text-2xl font-bold">
-                         Score: <span id="my-score" class="text-indigo-400">0</span>
-                     </div>
-                </div>
-            </div>
-
-            <!-- Sidebar Leaderboard (Visible on wide screens) -->
-            <div class="w-full md:w-80 bg-gray-900 border-l border-gray-800 p-6 flex flex-col h-[30vh] md:h-auto overflow-hidden">
-                <h3 class="text-xl font-bold text-gray-400 mb-4 uppercase tracking-wider flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                    Live Scores
-                </h3>
-                <div id="leaderboard-list" class="space-y-3 overflow-y-auto custom-scrollbar flex-1">
-                    <!-- Leaderboard items -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- --- GAME OVER --- -->
-    <div id="view-game-over" class="view-section hidden flex-col items-center justify-center min-h-screen p-4 pt-20">
-        <h2 class="text-6xl font-black text-yellow-400 mb-8 drop-shadow-lg">Final Standings</h2>
-        <div id="final-leaderboard" class="w-full max-w-2xl space-y-4 mb-12">
-            <!-- Final items -->
-        </div>
-        <div class="flex gap-4">
-            <button id="btn-review" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-bold text-xl transition">📝 Review Questions & Answers</button>
-            <button onclick="location.reload()" class="bg-gray-800 hover:bg-gray-700 text-white px-10 py-4 rounded-xl font-bold text-xl transition">Back to Menu</button>
-        </div>
-    </div>
-
-    <!-- --- REVIEW PAGE --- -->
-    <div id="view-review" class="view-section hidden flex-col min-h-screen p-4 pt-20">
-        <div class="w-full max-w-4xl mx-auto">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-5xl font-black text-indigo-400">Question Review</h2>
-                <button id="btn-back-from-review" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-bold transition">← Back to Results</button>
-            </div>
-            
-            <div id="review-content" class="space-y-6">
-                <!-- Questions with answers will be inserted here -->
-            </div>
-        </div>
-    </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
