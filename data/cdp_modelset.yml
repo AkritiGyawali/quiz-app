@@ -1,0 +1,996 @@
+- id: 1
+  text: |
+    A transistor with \( \alpha = 0.98 \) gives saturation current \( I_{co} = 10 \, \mu A \) when used in common base circuit. If the transistor is connected in common emitter mode with a base current of 0.2 mA, the collector current will be
+  options:
+    - 0.21 mA.
+    - 0.201 mA.
+    - 1.03 mA.
+    - 10.3 mA.
+  correct: 3
+
+- id: 2
+  text: |
+    A Norton's equivalent circuit of a complicated network consists of a
+  options:
+    - constant voltage source with series impedance.
+    - constant current source with parallel impedance.
+    - constant voltage source with parallel impedance.
+    - constant current source with series impedance.
+  correct: 1
+
+- id: 3
+  text: |
+    A zener diode of zener voltage 30 V is connected in series with a power source of 60 V and a resistor 3 kΩ operating in reverse biased condition. If a load resistance of 30 kΩ is connected across the diode, the voltage across the resistor 3 kΩ will be
+  options:
+    - 3 V.
+    - 15 V.
+    - 30 V.
+    - 60 V.
+  correct: 2
+
+- id: 4
+  text: |
+    The inputs applied to non-inverting terminals of a differential amplifier are 1 mV and -1 mV respectively, when used in double input and output configuration. If the voltage gains in differential and common modes are 80 and 480, respectively, the output voltage of the amplifier is
+  options:
+    - 80 mV.
+    - 480 mV.
+    - 160 mV.
+    - 560 mV.
+  correct: 2
+
+- id: 5
+  text: |
+    In a negative feedback amplifier, \( A = 100 \) and \( \beta = 0.04 \) having \( V_i = 50 \, \text{mV} \) the gain with the feedback is
+  options:
+    - 4.
+    - 5.
+    - 10.
+    - 20.
+  correct: 3
+
+- id: 6
+  text: |
+    For an N-channel JFET, \( I_{DSS} = 8.7 \, \text{mA}, \, V_p = -3 \, \text{V} \) and \( V_{GS} = -1 \, \text{V} \); the drain current (\( I_D \)) will be
+  options:
+    - 3.87 mA.
+    - 5.87 mA.
+    - 8.87 mA.
+    - 7.87 mA.
+  correct: 0
+
+- id: 7
+  text: |
+    A full adder has
+  options:
+    - two inputs and two outputs.
+    - two inputs and three outputs.
+    - three inputs and three outputs.
+    - three inputs and two outputs.
+  correct: 3
+
+- id: 8
+  text: |
+    The octal number of hexadecimal number (38A.7B)16 is
+  options:
+    - (1612.366)8.
+    - (1621.366)8.
+    - (1612.636)8.
+    - (1621.636)8.
+  correct: 0
+
+- id: 9
+  text: |
+    The value of Boolean expression \( \overrightarrow{ABC} + \overrightarrow{ABC} \) is
+  options:
+    - A.
+    - B.
+    - C.
+    - 1.
+  correct: 3
+
+- id: 10
+  text: |
+    In an oscillator using CE amplifier and a feedback network the phase difference between input and output signal is
+  options:
+    - 0°.
+    - 90°.
+    - 180°.
+    - 360°.
+  correct: 2
+
+- id: 11
+  text: |
+    If a vector \( (x + 4y)i + (y + 52j)i + (x + az)k \) is solenoidal, the value of constant '\( a \)' is
+  options:
+    - 0.
+    - 1.
+    - -2.
+    - 3.
+  correct: 2
+
+- id: 12
+  text: |
+    If \( p = q = r \), the Christoffel symbols of the first kind \( [pq,r] \) is equal to
+  options:
+    - \( \frac{\partial g_{pp}}{\partial x^p} \).
+    - \( -\frac{1}{2} \frac{\partial g_{pp}}{\partial x^p} \).
+    - \( \frac{1}{2} \frac{\partial g_{pp}}{\partial x^p} \).
+    - \( -\frac{\partial g_{pp}}{\partial x^p} \).
+  correct: 2
+
+- id: 13
+  text: |
+    The determinant of fundamental tensor in spherical polar co-ordinates is
+  options:
+    - 1.
+    - \( \mu^2 \).
+    - \( \mu^2 \sin^2 \theta \).
+    - \( \mu^4 \sin^2 \theta \).
+  correct: 3
+
+- id: 14
+  text: |
+    If \( \phi(x,y,z) \) is any solution of Laplace equation, then \( \nabla \phi \) is a vector that is
+  options:
+    - solenoidal.
+    - solenoidal and rotational.
+    - irrotational.
+    - solenoidal and irrotational.
+  correct: 3
+
+- id: 15
+  text: |
+    A vector space is called infinite-dimensional if there exists
+  options:
+    - an arbitrary large number of linearly independent vectors in the space.
+    - a finite and countable number of linearly independent vectors in the space.
+    - an arbitrary large number of linearly dependent vectors in the space.
+    - a finite and countable number of orthogonal vectors in the space.
+  correct: 0
+
+- id: 16
+  text: |
+    The eigenvalues of the matrix \( \begin{pmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix} \) are
+  options:
+    - -1, 0, 1.
+    - \( \sqrt{2}, 0, \sqrt{2} \).
+    - \( \sqrt{2}, 0, -2 \).
+    - \( \sqrt{2}, 0, 2 \).
+  correct: 1
+
+- id: 17
+  text: |
+    What does \( \psi = (C_1 e^{-k_1 x} + C_2 e^{k_1 x}) (C_3 e^{-k_2 y} + C_4 e^{k_2 y}) (C_5 e^{-k_3 z} + C_6 e^{k_3 z}) \) mean?
+  options:
+    - It is the solution of Laplace equation.
+    - It is the solution of Poisson equation.
+    - It is the solution of the wave equation.
+    - It is the solution of heat conduction equation.
+  correct: 0
+
+- id: 18
+  text: |
+    In the Bessel recurrence formula, the value of \( J_{n-1}(x) + J_{n+1}(x) \) is equal to
+  options:
+    - \( 2J_n(x) \).
+    - \( \frac{2n}{x} J_n(x) \).
+    - \( J_n'(x) \).
+    - \( \frac{2}{nx} J_n(x) \).
+  correct: 1
+
+- id: 19
+  text: |
+    The inner product of \( \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} \) and \( \begin{pmatrix} -1 & 0 \\ 3 & 2 \end{pmatrix} \) is
+  options:
+    - 0.
+    - 10.
+    - 16.
+    - 8.
+  correct: 2
+
+- id: 20
+  text: |
+    The value of \( a_n(n > 0) \) of Fourier series of \( f(x) = x^2 \) for \( -\pi < x < \pi \) is
+  options:
+    - \( \frac{4(-1)^n}{n} \).
+    - \( \frac{4(-1)^n}{n^2} \).
+    - \( \frac{(-1)^n}{n^2} \).
+    - 0.
+  correct: 1
+
+- id: 21
+  text: |
+    A pendulum bob is suspended by a stiff rod of length l and negligible mass. A bullet of mass m and speed v horizontally strikes the bob and passes through it with speed v/2. If M is the mass of the bob, the minimum value of v such that the pendulum bob will barely swing through a vertical circle is
+  options:
+    - \( \frac{m}{\sqrt{gL}} \).
+    - \( \frac{2M}{m} \sqrt{gL} \).
+    - \( \frac{3M}{m} \sqrt{gL} \).
+    - \( \frac{4M}{m} \sqrt{gL} \).
+  correct: 3
+
+- id: 22
+  text: |
+    The ratio of gravitational potential of a solid sphere at its centre and circumference is
+  options:
+    - 1:1.
+    - 1:2.
+    - 2:1.
+    - 3:2.
+  correct: 3
+
+- id: 23
+  text: |
+    A flywheel in the form of a solid cylinder disc of mass 5000 kg and radius 1 m is rotating, making 120 revolutions per minute. If the flywheel is brought to rest in 2 seconds, the angular impulse is
+  options:
+    - \( \pi \times 10^4 \, \text{Nm-s} \).
+    - \( \frac{\pi}{2} \times 10^4 \, \text{Nm-s} \).
+    - \( 2\pi \times 10^4 \, \text{Nm-s} \).
+    - \( \frac{\pi}{3} \times 10^4 \, \text{Nm-s} \).
+  correct: 0
+
+- id: 24
+  text: |
+    A spring of force constant k is stretched by a certain distance. It takes twice as much work to stretch a second spring by half this distance. The force constant of the second spring is
+  options:
+    - 8k.
+    - 2k.
+    - 4k.
+    - 6k.
+  correct: 0
+
+- id: 25
+  text: |
+    A wave is described by the equation \( y = y_0 \sin(6284x - 6\pi \times 10^4 t) \), where x is in meter and t in second. The wave speed is
+  options:
+    - 30 m/s.
+    - 300 m/s.
+    - \( 3 \times 10^3 \, \text{m/s} \).
+    - \( 3 \times 10^4 \, \text{m/s} \).
+  correct: 0
+
+- id: 26
+  text: |
+    In the case of a forced harmonic oscillator, the amplitude of vibration increases from 0.02 mm at very low frequencies to the minimum value of 5 mm at frequency 100 Hz. The Q-factor of the system is
+  options:
+    - 200.
+    - 25.
+    - 100.
+    - 250.
+  correct: 3
+
+- id: 27
+  text: |
+    Three horizontal capillaries of same length but internal radii 3r, 4r and 5r are connected in series and a liquid flows through them in streamline conditions. If the pressure across the third capillary is 8.1 mm of Hg, pressure across the first capillary is
+  options:
+    - 4.86 mm of Hg.
+    - 8.1 mm of Hg.
+    - 6.25 mm of Hg.
+    - 6.25 cm of Hg.
+  correct: 3
+
+- id: 28
+  text: |
+    The angular frequency of damped harmonic oscillator \( \left( m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + kx = 0 \right) \) is
+  options:
+    - \( \sqrt{\frac{k}{m}} \).
+    - \( \sqrt{\frac{k}{m} + \frac{b^2}{4m^2}} \).
+    - \( \sqrt{\frac{k}{m} - \frac{b^2}{4m^2}} \).
+    - \( \sqrt{\frac{k}{m} - \frac{4b^2}{m^2}} \).
+  correct: 2
+
+- id: 29
+  text: |
+    The work done in twisting a steel wire (radius 1 mm, length 25 cm and torsional rigidity \(8 \times 10^{11}\) dynes/cm\(^2\)) through an angle of 45° is
+  options:
+    - \(1.5 \times 10^6\) ergs.
+    - \(1.5 \times 10^6\) ergs.
+    - \(1.5 \times 10^7\) ergs.
+    - \(1.5 \times 10^8\) ergs.
+  correct: 0
+
+- id: 30
+  text: |
+    A converging meniscus lens has radii -15.0 cm and -5.0 cm. Its shape factor will be
+  options:
+    - -15.
+    - -5.
+    - 3.
+    - -2.
+  correct: 3
+
+- id: 31
+  text: |
+    The dispersive index of a spectacle crown glass (\( \mu_F = 1.52933 \), \( \mu_D = 1.52300 \), \( \mu_C = 1.52042 \)) is
+  options:
+    - 58.7.
+    - 0.00891.
+    - 0.523.
+    - 0.02.
+  correct: 0
+
+- id: 32
+  text: |
+    The radius of the first transparent zone of a zone-plate behaving like a convex lens for light of wavelength 600 nm is 0.0767 cm. Focal length of the zone-plate is
+  options:
+    - 0.98 cm.
+    - 49 cm.
+    - 98 cm.
+    - 9.80 cm.
+  correct: 2
+
+- id: 33
+  text: |
+    The thickness of quarter-wave plate of quartz for light of wavelength \(5.5 \times 10^{-5}\) cm is (for quartz \( \mu_E = 1.553 \) and \( \mu_D = 1.544 \))
+  options:
+    - \(1.53 \times 10^{-3}\) m.
+    - \(1.53 \times 10^{-4}\) m.
+    - \(1.53 \times 10^{-5}\) m.
+    - \(1.53 \times 10^{-6}\) m.
+  correct: 2
+
+- id: 34
+  text: |
+    A gas laser of wavelength 3.2 μm has the difference of energy between upper and lower level equal to
+  options:
+    - 4 eV.
+    - 0.40 J.
+    - 0.40 eV.
+    - 4 MeV.
+  correct: 2
+
+- id: 35
+  text: |
+    The refractive indices of a piece of optical glass for the blue and green lines of the Hg spectrum, \( \lambda = 4358 \, \text{\AA} \) and \( \lambda = 5461 \, \text{\AA} \), are 1.65250 and 1.62450, respectively. The Cauchy constants of the glass A and B are
+  options:
+    - 1.57540 and 1.46431 \( \times 10^6 \, \text{\AA}^2 \).
+    - 1.58 and 1.46 \( \times 10^6 \, \text{\AA}^2 \).
+    - 1.57540 \( \text{\AA}^2 \) and 1.46431.
+    - 1.58 \( \text{\AA}^2 \) and 1.46 \( \times 10^6 \).
+  correct: 0
+
+- id: 36
+  text: |
+    Which of the following is not a characteristic of grating spectrum?
+  options:
+    - On either side of the zero order principal maxima, a number of spectra of different orders are situated asymmetrically.
+    - On either side of the zero order principal maxima, spectral lines have color in the order of violet to red.
+    - The spectral lines are sharp and straight.
+    - The lines are more and more dispersed as the order becomes higher.
+  correct: 0
+
+- id: 37
+  text: |
+    If a transparent plate of refractive index 1.5 is introduced in the path of one of the interfering monochromatic light of wavelength 5450Å, the system of fringes shift by 50 fringes. Thickness of the plate is
+  options:
+    - 10.9 μm.
+    - 5.45 μm.
+    - 54.5 μm.
+    - 109 μm.
+  correct: 2
+
+- id: 38
+  text: |
+    In an experiment, diameter of \(10^{th}\) dark Newton's ring is 0.4 cm. If the radius of curvature of the lens is 2/3 meter, the wavelength of light is
+  options:
+    - 600 nm.
+    - 500 nm.
+    - 550 nm.
+    - 450 μm.
+  correct: 0
+
+- id: 39
+  text: |
+    If an electron is accelerated through V volts then the de Broglie wavelength in Å is
+  options:
+    - \( \left[ \frac{75}{v} \right]^{\frac{1}{2}} \).
+    - \( \left[ \frac{150}{v} \right]^{\frac{1}{2}} \).
+    - \( \left[ \frac{300}{v} \right]^{\frac{1}{2}} \).
+    - \( \left[ \frac{1}{v} \right]^{\frac{1}{2}} \).
+  correct: 1
+
+- id: 40
+  text: |
+    The Kα line has a wavelength \( \lambda \) for an element with atomic number \( Z = 19 \). The atomic number of an element which has a wavelength \( \lambda/4 \) for the Kα line is
+  options:
+    - 75.
+    - 76.
+    - 37.
+    - 38.
+  correct: 2
+
+- id: 41
+  text: |
+    Given that the present proportion of \( ^{235}\text{U} \) to \( ^{238}\text{U} \) in a rock is 1:140. What proportion was present in the rock formed \( 3 \times 10^9 \) years ago? [\( T_{1/2}(^{235}\text{U}) = 8.8 \times 10^8 \) years, \( T_{1/2}(^{238}\text{U}) = 4.5 \times 10^9 \) years]
+  options:
+    - 1:21.
+    - 2:21.
+    - 1:34.
+    - 3:34.
+  correct: 0
+
+- id: 42
+  text: |
+    From the shell model predictions, ground state spin-parity of the nuclei \( ^{20}\text{Ne}_{10} \) and \( ^{41}\text{Sc}_{21} \) are
+  options:
+    - \( (0)^+ \) and \( (7/2)^+ \).
+    - \( (0)^- \) and \( (7/2)^+ \).
+    - \( (0)^- \) and \( (7/2)^- \).
+  correct: 2
+
+- id: 43
+  text: |
+    Scintillation counter has advantages over GM counter in detecting radioactive radiation because the time of flight of
+  options:
+    - electron is larger than ions.
+    - electron is smaller than ions.
+    - alpha particle is maximum.
+    - alpha particle is minimum.
+  correct: 1
+
+- id: 44
+  text: |
+    Isospin of \( \Sigma \) baryon is
+  options:
+    - 0.
+    - 1.
+    - 1/2.
+    - 3/2.
+  correct: 1
+
+- id: 45
+  text: |
+    For \( n-p \) scattering at low energy, the total cross section for a free proton is given by
+  options:
+    - \( \frac{4\pi}{k^2} \sin^2 \delta \).
+    - \( \frac{4\pi}{k^2} \tan^2 \delta \).
+    - \( \frac{2\pi}{k^2} \sin^2 \delta \).
+    - \( \frac{4\pi}{k} \cot^2 \delta \).
+  correct: 0
+
+- id: 46
+  text: |
+    In beta decay process the tritium decays into
+  options:
+    - \( ^3\text{He} + e^+ + v_e \).
+    - \( ^3\text{He} + e^- + \bar{v}_e \).
+  correct: 1
+
+- id: 47
+  text: |
+    Mesic atom is a
+  options:
+    - positively charged muon or pion when captured by a nucleus to form a bound state.
+    - negatively charged muon or pion when captured by an atom to form a bound state.
+    - positively charged muon or pion when captured by an atom to form a bound state.
+    - negatively charged muon or pion when captured by a nucleus to form a bound state.
+  correct: 1
+
+- id: 48
+  text: |
+    In a Frank-Hertz experiment with mercury atom, the sudden drop of collector current takes place at specific values of accelerating voltages. It is because
+  options:
+    - atom has absorbed energy to raise it from the ground state to a state of higher energy.
+    - electrons of the atom gain energy from the mercury atom.
+    - exchange of energy between electron from filament and mercury atom.
+    - elastic collision takes place between electron with mercury atom.
+  correct: 0
+
+- id: 49
+  text: |
+    The probability current density for the wavefunction \( \psi(x) = u(x) \exp \{i\phi(x)\} \) where \( u \) and \( \phi \) are real, is
+  options:
+    - \( \frac{\hbar}{m} u \frac{\partial \phi}{\partial x} \).
+    - \( \frac{\hbar}{m^2} u^2 \frac{\partial \phi}{\partial x} \).
+    - \( \frac{\hbar}{m^2} u^2 \frac{\partial^2 \phi}{\partial x^2} \).
+    - \( \frac{\hbar}{m} u^2 \frac{\partial \phi}{\partial x} \).
+  correct: 3
+
+- id: 50
+  text: |
+    The minimum energy needed for a photon to turn into an electron-positron pair is \( 2m_e c^2 \). Estimate how long a virtual electron-positron pair can exist?
+  options:
+    - \( 1.7 \times 10^{-22} \, s \).
+    - \( 3.3 \times 10^{-22} \, s \).
+    - \( 1.7 \times 10^{-24} \, s \).
+    - \( 3.3 \times 10^{-24} \, s \).
+  correct: 1
+
+- id: 51
+  text: |
+    A particle is described by the wavefunction \( \psi(x) = \left[ \frac{\pi}{a} \right]^{\frac{1}{4}} \exp \left\{ -\frac{ax^2}{2} \right\} \). The value of \( \Delta p \) will be
+  options:
+    - \( \sqrt{\frac{1}{a}} \, \hbar \).
+    - \( \sqrt{\frac{a}{2}} \, \hbar \).
+    - \( \sqrt{\frac{1}{2a}} \, \hbar \).
+    - \( \sqrt{\frac{1}{a}} \).
+  correct: 1
+
+- id: 52
+  text: |
+    Which statement is not true?
+  options:
+    - The classical analog of the operator \( i\hbar \frac{\partial}{\partial t} \) is the energy.
+    - Operators having common set of eigenfunctions do not commute.
+    - If \( \psi_1 \) and \( \psi_2 \) are the eigenfunctions of the operator \( A \), \( c_1 \psi_1 + c_2 \psi_2 \) is also an eigenfunction of \( A \) with the same eigenvalue (\( c_1 \) and \( c_2 \) are constants).
+    - The physical dimensions of the wave function \( \psi(r) \) of a particle moving in three dimensional space is (length)\( ^{3/2} \).
+  correct: 1
+
+- id: 53
+  text: |
+    A hydrogen atom in a state having energy -0.85 eV makes a transition to a state with the excitation energy of 10.2 eV with respect to the ground state. The energy of the emitted photon will be
+  options:
+    - 11.05 eV.
+    - 9.35 eV.
+    - 3.40 eV.
+    - 2.55 eV.
+  correct: 3
+
+- id: 54
+  text: |
+    The expectation value of an observable, whose operator does not depend on time explicitly, is a
+  options:
+    - constant with zero uncertainty.
+    - variable with zero uncertainty.
+    - constant with finite uncertainty.
+    - variable with finite uncertainty.
+  correct: 3
+
+- id: 55
+  text: |
+    An electron is in the ground state of a one dimensional finite square well with \( a = 10^{-10} \, m \). The force that the electron exerts on the wall during an impact is
+  options:
+    - \( 1.2 \times 10^{-5} \, N \).
+    - \( 1.2 \times 10^{-6} \, N \).
+    - \( 1.2 \times 10^{-7} \, N \).
+    - \( 1.2 \times 10^{-8} \, N \).
+  correct: 2
+
+- id: 56
+  text: |
+    A beam of 12 eV electrons is incident on a potential barrier of height 10 eV and width 0.05 nm. The transmission coefficient is
+  options:
+    - 0.14.
+    - 0.24.
+    - 0.34.
+    - 0.44.
+  correct: 3
+
+- id: 57
+  text: |
+    The ground state wavefunction of a particle of mass \( m \) is given by \( \psi(x) = \exp\left\{-\frac{a^2 x^4}{4}\right\} \), with energy eigenvalue \( \left(\frac{\hbar^2 a^2}{m}\right) \). The potential in which the particle moves is
+  options:
+    - \( \frac{\hbar^2}{2m} \alpha^4 x^6 - \frac{3}{2} \frac{\hbar^2}{2m} \alpha^2 x^2 + \frac{\hbar^2 a^2}{m} \).
+    - \( \frac{\hbar^2}{2m} \alpha^2 x^6 - \frac{3}{2} \frac{\hbar^2}{2m} \alpha^2 x^2 \).
+    - \( \frac{3}{2} \frac{\hbar^2}{2m} \alpha^2 x^2 + \frac{\hbar^2 a^2}{m} \).
+    - \( \frac{\hbar^2}{2m} \alpha^2 x^6 - \frac{3}{2} \frac{\hbar^2}{2m} \alpha^2 x^2 + \frac{\hbar^2 a^2}{m} \).
+  correct: 0
+
+- id: 58
+  text: |
+    A quark having mass one-third of the mass of a proton is confined in a cubical box of sides 1.8×10\( ^{-15} \) m. The excitation energy from the first to the second excited state is
+  options:
+    - 13.6 eV.
+    - 565 MeV.
+    - 13.6 MeV.
+    - 6.8 eV.
+  correct: 1
+
+- id: 59
+  text: |
+    In the scanning tunneling microscope (STM), an applied voltage causes
+  options:
+    - the valence electrons of the metal to become free electron.
+    - the free electrons to tunnel the intervening vacuum.
+    - the valence electrons of the metal tunnel through the Coulomb barrier.
+    - the free electrons to tunnel through the Coulomb barrier.
+  correct: 1
+
+- id: 60
+  text: |
+    Which of the following statement is not correct?
+  options:
+    - The trace of a matrix is invariant under unitary transformation.
+    - The scalar product is invariant under unitary transformation.
+    - The expectation value of operator changes with unitary transformation.
+    - Time reversal operator operating on any number changes it into its complex conjugate.
+  correct: 2
+
+- id: 61
+  text: |
+    Among the Maxwell's equations which one would be incorrect if magnetic monopole exists?
+  options:
+    - \( \nabla \vec{E} = \frac{\rho}{\epsilon_0} \).
+    - \( \nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t} \).
+    - \( \nabla \vec{B} = 0 \).
+    - \( \nabla \times \vec{H} = \vec{J} + \frac{\partial \vec{D}}{\partial t} \).
+  correct: 2
+
+- id: 62
+  text: |
+    For an electrostatic potential given as \( \phi = 2xz + x^2 y - 3y^2 z^2 \), the y-component of electric field is
+  options:
+    - \( x^2 - 3z^2 \).
+    - \( 6yz^2 - x^2 \).
+    - \( x^2 + 6yz^2 \).
+    - \( x^2 - 6yz^2 \).
+  correct: 1
+
+- id: 63
+  text: |
+    When current flows down a wire, work is done and energy is transported by the field. A wire of length L and radius 'a' has potential difference V between the ends and carries current I. Assuming uniform electric field parallel to the wire the magnitude of the Poynting vector is
+  options:
+    - \( \frac{VI}{2\pi aL} \).
+    - \( \frac{VI}{2aL} \).
+    - \( \frac{VI}{2\pi\mu_0aL} \).
+    - \( \frac{VI}{\pi\mu_0aL} \).
+  correct: 0
+
+- id: 64
+  text: |
+    The image charge of a real charge '-q' when placed at a distance 'a' from the centre of a grounded conducting sphere of radius r (\( r < a \)) is
+  options:
+    - \( -\frac{r^2}{a^2} q \).
+    - \( \frac{r^2}{a^2} q \).
+    - \( -\frac{r}{a} q \).
+    - \( \frac{r}{a} q \).
+  correct: 3
+
+- id: 65
+  text: |
+    The electric field inside a dielectric sphere (of dielectric constant 7) placed in uniform external field \( \vec{E} \) is
+  options:
+    - \( \vec{E}/7 \).
+    - \( \vec{E}/3 \).
+    - \( \vec{E}/6 \).
+    - \( \vec{E}/9 \).
+  correct: 1
+
+- id: 66
+  text: |
+    The magnitude of force acting on an alpha particle moving with a velocity \( (2t + 3k) \) m/s in a magnetic field \( (4j + 2k) \) Tesla is
+  options:
+    - 0.
+    - \( 4 \times 10^{-16} \) N.
+    - \( 4 \times 10^{-18} \) N.
+    - \( 4 \times 10^{-19} \) N.
+  correct: 2
+
+- id: 67
+  text: |
+    The self inductance of 500 turns of a 20 cm long coil of radius 5 cm is
+  options:
+    - 15 mH.
+    - 12 mH.
+    - 9 mH.
+    - 5 mH.
+  correct: 1
+
+- id: 68
+  text: |
+    In a certain region where permeability is \( \mu = 4.6\mu_0 \) a magnetic field \( \vec{B} = 0.01 e^{-y} \hat{z} \) Wb/m\( ^2 \) produces magnetization (\( \vec{M} \) in A/m) given by
+  options:
+    - 6225 \( e^{-y} \hat{y} \).
+    - 4600 \( e^{-y} \hat{y} \).
+    - 4600 \( e^{-y} \hat{z} \).
+    - 6225 \( e^{-y} \hat{z} \).
+  correct: 3
+
+- id: 69
+  text: |
+    A capacitor of 2 μF capacitance is discharged through a 1 Ω resistance and 2 H inductance, the quality factor is
+  options:
+    - 400.
+    - 500.
+    - 1000.
+    - 1500.
+  correct: 2
+
+- id: 70
+  text: |
+    In Econophysics, according to Mandelbrot's hypothesis
+  options:
+    - price changes are random.
+    - price changes follow power law.
+    - price changes follow chaotic approach.
+    - price changes follow a Levy stable distribution.
+  correct: 3
+
+- id: 71
+  text: |
+    Levy distributions are
+  options:
+    - stable and self similar.
+    - only stable.
+    - only self similar.
+    - sometimes stable and in many cases they are self-similar.
+  correct: 0
+
+- id: 72
+  text: |
+    Consider independent identically distributed random variables \( x_i \) which can take values +s or -s only. The first and second moments for such a process are
+  options:
+    - \( E\{x_i\} = s \), \( E\{x_i^2\} = s^2 \).
+    - \( E\{x_i\} = -s \), \( E\{x_i^2\} = 2s^2 \).
+    - \( E\{x_i\} = 0 \), \( E\{x_i^2\} = 4s^2 \).
+    - \( E\{x_i\} = 0 \), \( E\{x_i^2\} = s^2 \).
+  correct: 3
+
+- id: 73
+  text: |
+    Which one of the following statement is not the Kepler's law?
+  options:
+    - The orbit of every planet is an ellipse with the Sun at one of the foci.
+    - A line joining a planet and the Sun sweeps out equal area during equal interval of time.
+    - The square of the orbital period of a planet is inversely proportional to the cube of semi-major axis of its orbit.
+    - The square of the orbital angular frequency of a planet is inversely proportional to the cube of semi-major axis of its orbit.
+  correct: 3
+
+- id: 74
+  text: |
+    In Rutherford experiment if the scattering angle changes from \( \frac{\pi}{2} \) to \( \frac{\pi}{3} \) then the ratio of respective differential cross sections is
+  options:
+    - 1 / 4.
+    - 4 / 9.
+    - 2 / 3.
+    - 16 / 81.
+  correct: 0
+
+- id: 75
+  text: |
+    In a system of N-particles subjected to r independent constraints, the number of degrees of freedom is
+  options:
+    - 3N.
+    - N – 3r.
+    - 3N – r.
+    - N – r.
+  correct: 2
+
+- id: 76
+  text: |
+    Which of the following curved surface has the minimum surface area of revolution?
+  options:
+    - Ellipse.
+    - Catenary.
+    - Hyperbola.
+    - Cycloid.
+  correct: 1
+
+- id: 77
+  text: |
+    An object is dropped from a height of 100 m at a place midway between the equator and the North Pole on Earth. It will be deflected from the vertical due to the Coriolis effect by
+  options:
+    - 0.7 cm.
+    - 1.6 cm.
+    - 1.1 cm.
+    - 2.0 cm.
+  correct: 1
+
+- id: 78
+  text: |
+    A Lagrangian for a symmetrical top spinning about the axis of symmetry and fixed at its lower tip is
+  options:
+    - \( \frac{l_2}{2}(\dot{\theta}^2 + \dot{\phi}^2 \sin^2 \theta) + \frac{l_3}{2}(\dot{\psi} + \dot{\phi} \cos \theta)^2 - mg l \cos \theta \).
+    - \( \frac{l_1}{2}(\dot{\theta}^2 + \dot{\phi}^2 \sin^2 \theta) + \frac{l_2}{2}(\dot{\psi} + \dot{\phi} \cos \theta)^2 - mg l_3 \cos \theta \).
+    - \( \frac{l_1}{2}(\dot{\theta}^2 + \dot{\phi}^2 \sin^2 \theta) + \frac{l_2}{2}(\dot{\psi} + \dot{\phi} \cos \theta)^2 - mg l \cos \theta \).
+    - \( \frac{l_1}{2}(\dot{\theta}^2 + \dot{\phi}^2 \sin^2 \theta) + \frac{l_2}{2}(\dot{\psi} + \dot{\phi} \cos \theta)^2 + mg l \cos \theta \).
+  correct: 0
+
+- id: 79
+  text: |
+    According to Lorentz transformation the time observed from two different frames, which are in relative motion with respect to each other, are related as
+  options:
+    - \( t' = \frac{t + xv/c^2}{\sqrt{1-v^2/c^2}} \).
+    - \( t' = \frac{t + x/v}{\sqrt{1-v^2/c^2}} \).
+    - \( t' = \frac{t - xv/c^2}{\sqrt{1-v^2/c^2}} \).
+    - \( t' = \frac{t - x/v}{\sqrt{1-v^2/c^2}} \).
+  correct: 2
+
+- id: 80
+  text: |
+    A space-station is moving with a speed of 0.9c with respect to the Earth. If a rocket leaves the station with a speed of 0.3c along the same direction, speed of the rocket with respect to Earth is
+  options:
+    - 0.94c.
+    - c.
+    - 0.93c.
+    - 1.20c.
+  correct: 0
+
+- id: 81
+  text: |
+    The number of nearest neighbors and number of second neighbors in (i) simple cubic, (ii) body centered cubic and (iii) face centered cubic crystal structures are
+  options:
+    - (i) 6, 12    (ii) 8, 12    (iii) 12, 6.
+    - (i) 6, 6    (ii) 8, 6    (iii) 12, 8.
+    - (i) 6, 12    (ii) 6, 12    (iii) 6, 12.
+    - (i) 6, 12    (ii) 8, 6    (iii) 12, 6.
+  correct: 3
+
+- id: 82
+  text: |
+    The first Brillouin zone of a body centered cubic crystal is
+  options:
+    - a face centered cubic.
+    - a cube.
+    - rhombic dodecahedron.
+    - truncated octahedron.
+  correct: 2
+
+- id: 83
+  text: |
+    The molar specific heat capacity of gold (Debye temperature = 169 K) at 10 K will be
+  options:
+    - R.
+    - 0.05R.
+    - 10R.
+    - 6.023 x \(10^{23}\)R.
+  correct: 1
+
+- id: 84
+  text: |
+    If the energy of formation of pair of Na\( ^+ \) and Cl\( ^- \) from NaCl crystal is 1 eV, the equilibrium concentration of defects at 1000 K is
+  options:
+    - \(2.5 \times 10^{-3}\).
+    - \(2.5 \times 10^{-6}\).
+    - \(2.5 \times 10^{-9}\).
+    - \(2.5 \times 10^{-12}\).
+  correct: 0
+
+- id: 85
+  text: |
+    The Fermi wavevector of potassium is \(7.5 \times 10^7 \, \text{cm}^{-1}\). Its electron concentration and Fermi energy are given respectively by
+  options:
+    - \(1.40 \times 10^{24} \, \text{cm}^{-3}\) and 2.12 eV.
+    - \(1.40 \times 10^{22} \, \text{cm}^{-3}\) and 2.12 eV.
+    - \(1.40 \times 10^{23} \, \text{cm}^{-3}\) and 3.12 eV.
+    - \(1.40 \times 10^{22} \, \text{cm}^{-3}\) and 3.12 eV.
+  correct: 1
+
+- id: 86
+  text: |
+    Consider energy (\(E\)) versus wave vector (\(k\)) curve of charge carriers in a conductor. The effective mass and velocity of the carrier are related to
+  options:
+    - \( \frac{dE}{dk} \) and \( \frac{d^2E}{dk^2} \).
+    - \( \frac{dE}{dk} \) and \( \frac{dE}{dk^*} \).
+    - \( \frac{d^2E}{dk^2} \) and \( \frac{dE}{dk} \).
+    - \( \frac{d^2E}{dk^2} \) and \( \frac{d^2E}{dk^*} \).
+  correct: 2
+
+- id: 87
+  text: |
+    The density of states per unit volume for free electrons of intrinsic semiconductor D(E) is given by
+  options:
+    - \( \left(\frac{1}{2\pi^2}\right)\left(\frac{2m}{\hbar^2}\right)(E_c - E)^{1/2} \).
+    - \( \left(\frac{1}{2\pi^2}\right)\left(\frac{2m}{\hbar^2}\right)(E - E_c)^{1/2} \).
+    - \( \left(\frac{1}{2\pi^2}\right)\left(\frac{2m}{\hbar^2}\right)(E_y - E)^{1/2} \).
+    - \( \left(\frac{1}{2\pi^2}\right)\left(\frac{2m}{\hbar^2}\right)(E_y - E)^{3/2} \).
+  correct: 1
+
+- id: 88
+  text: |
+    Which statement is correct for Type I and Type II superconductor?
+  options:
+    - Both Type I and Type II superconductors have only one critical magnetic field.
+    - Type I has one critical magnetic field whereas Type II has several critical magnetic fields.
+    - Type I has two critical magnetic fields whereas type II has only one critical magnetic field.
+    - Both Type I and Type II have two critical magnetic fields.
+  correct: 1
+
+- id: 89
+  text: |
+    The value of depolarization tensor for a spherical specimen is (in CGS units)
+  options:
+    - 4π/3.
+    - 1.
+    - 2π.
+    - 1/3.
+  correct: 0
+
+- id: 90
+  text: |
+    Iron has Curie constant 0.2 (CGS unit) and mean field constant 5000. What is its critical temperature?
+  options:
+    - 1700 K.
+    - 800 K.
+    - 500 K.
+    - 1000 K.
+  correct: 3
+
+- id: 91
+  text: |
+    \( P, v \) and \( T \) are pressure, volume per particle and absolute temperature of a classical ideal gas. One draws a graph of \( (Pv/T) \) versus \( P \). The graph is a straight line
+  options:
+    - passing through the origin.
+    - parallel to \( (Pv/T) \) axis with intercept 8.31 J mole\( ^{-1} \) K\( ^{-1} \).
+    - parallel to \( P \) axis with intercept 8.31 J kilomole\( ^{-1} \) K\( ^{-1} \).
+    - parallel to \( P \) axis with intercept 8.31 × 10\( ^3 \) J kilomole\( ^{-1} \) K\( ^{-1} \).
+  correct: 3
+
+- id: 92
+  text: |
+    Each square meter of the Sun's surface radiates energy at the rate of \( 6.3 \times 10^7 \, \text{J/m}^2\text{-s} \) and Stefan's constant is \( 5.669 \times 10^{-8} \, \text{W/m}^2\text{-K}^4 \). The temperature of Sun's surface is estimated to be
+  options:
+    - 5973 K.
+    - 5437 K.
+    - 5373 K.
+    - 5773 K.
+  correct: 3
+
+- id: 93
+  text: |
+    The value of \( c_p \) for liquid water is \( 4.18 \times 10^3 \, \text{J/kg-K} \) (assumed to be constant from 0 °C to 100 °C). The change in specific entropy of water when its temperature changes from 0°C to 100°C is
+  options:
+    - \( 4.18 \times 10^3 \, \text{J/kg-K} \).
+    - \( 418 \times 10^3 \, \text{J/kg-K} \).
+    - 1310 J/kg-K.
+    - 3013 J/kg-K.
+  correct: 2
+
+- id: 94
+  text: |
+    Mercury melts at -38.87 °C at 1 atmosphere pressure and its density is 13.59 g/cc. The density of the solid mercury is 14.19 g/cc. The heat of fusion is 2.33 cal/g. The melting point of mercury at 1000 atmosphere pressure will be
+  options:
+    - -38.87 °C.
+    - 7.26 °C.
+    - -24.6 °C.
+    - -31.6 °C.
+  correct: 0
+
+- id: 95
+  text: |
+    Helium has critical temperature 5.26 K. The temperature of inversion of Helium will be
+  options:
+    - -73.9 °C.
+    - -237.5 °C.
+    - 5.26 K.
+    - 5.26 °C.
+  correct: 1
+
+- id: 96
+  text: |
+    Viscosity of neon at 15 °C is 31 (N s m\( ^2 \)). Its viscosity at 50 °C (in N s m\( ^2 \)) will be
+  options:
+    - 31.
+    - 33.
+    - 35.
+    - 62.
+  correct: 1
+
+- id: 97
+  text: |
+    The critical pressure, critical volume and critical temperature of van der Waals gas are given by
+  options:
+    - \( P_c = \frac{a}{27b} \), \( V_c = 3b \), \( T_c = \frac{8a}{27Rb} \).
+    - \( P_c = \frac{a}{27b^2} \), \( V_c = 3b \), \( T_c = \frac{8a}{27b} \).
+    - \( P_c = \frac{a}{27b^2} \), \( V_c = 3b \), \( T_c = \frac{8a}{27Rb} \).
+    - \( P_c = \frac{a}{27Rb} \), \( V_c = 3b \), \( T_c = \frac{8a}{27b^2} \).
+  correct: 2
+
+- id: 98
+  text: |
+    The root mean square speed of molecule of hydrogen at NTP is [Given: Boltzmann's constant = 1.38 x \(10^{23}\) J/K and Avogadro's number = 6 x \(10^{26}\) (kilomole)\(^{-1}\)]
+  options:
+    - 1838 m/s.
+    - 1528 m/s.
+    - 1800 m/s.
+    - 2828 m/s.
+  correct: 0
+
+- id: 99
+  text: |
+    For particle following which statistics, the energy at absolute zero cannot be zero?
+  options:
+    - Maxwell-Boltzmann.
+    - Fermi-Dirac.
+    - Bose-Einstein.
+    - Boltzmann.
+  correct: 1
+
+- id: 100
+  text: |
+    The value of thermodynamic probability is
+  options:
+    - always one.
+    - always lies between 0 and 1.
+    - always infinite.
+    - greater than or equal to 1.
+  correct: 3
