@@ -1,47 +1,21 @@
 from flask import Flask, send_from_directory, request, render_template
 from flask_socketio import SocketIO, emit, join_room, leave_room
-#import json  # needed only for json question files
 import yaml
 import random
 import time
 import threading
 import os
-# import argparse
 from typing import Dict, Any
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
-
-# Load questions from file
-questions_data = []
-CURRENT_SET = "math.yaml"  # Default question set
+# Global variables
+questions_data = []  # For backward compatibility with old API endpoints
+CURRENT_SET = ""  # Tracks currently loaded question set
 BASE_DIR = os.path.dirname(__file__)
 DATA_DIR = os.path.join(BASE_DIR, "data")
-
-# for developer mode
-# parser = argparse.ArgumentParser(description='Real-time Quiz Game Server')
-# parser.add_argument('--file', type=str, default='math.yaml', help='Questions file to load (YAML format)')
-# parser.add_argument('--min', type=int, default=1, help='Minimum question ID to include')
-# parser.add_argument('--max', type=int, default=10, help='Maximum question ID to include')
-# args = parser.parse_args()
-
-# QNS_FILE = args.file
-#QNS_FILE = os.environ.get('QNS_FILE', 'math.yaml')  # Change to desired file path
-
-try:
-    # JSON format
-    # with open(os.path.join(os.path.dirname(__file__), 'data', 'gk_sansthan.json'), 'r', encoding='utf-8') as f:
-    #     questions_data = json.load(f)
-    
-    # YAML format
-    with open(os.path.join(os.path.dirname(__file__), 'data', QNS_FILE), 'r', encoding='utf-8') as f:
-        questions_data = yaml.safe_load(f)
-    
-    print(f"Loaded {len(questions_data)} questions.")
-except Exception as err:
-    print(f"Error loading questions: {err}")
 
 # Game State Storage (In-memory)
 rooms: Dict[str, Dict[str, Any]] = {}
@@ -50,13 +24,6 @@ rooms: Dict[str, Dict[str, Any]] = {}
 QUESTION_TIME = 15
 SCORE_CORRECT = 5
 SCORE_WRONG = -5
-MIN = int(os.environ.get('QNS_MIN', 1))
-MAX = int(os.environ.get('QNS_MAX', 10))
-
-# For developer mode
-# MIN = args.min
-# MAX = args.max
-
 
 
 # load questions function
@@ -151,10 +118,18 @@ def handle_host_create_game(data=None):
     
     # Load questions based on selection if provided
     game_questions = []
+    stream_name = None
+    filename_name = None
+    question_time = QUESTION_TIME  # Default
+    
     if data and data.get('stream') and data.get('filename'):
         stream = data.get('stream')
         filename = data.get('filename')
         max_questions = data.get('maxQuestions', 10)
+        question_time = data.get('questionTime', QUESTION_TIME)
+        
+        stream_name = stream
+        filename_name = filename
         
         try:
             folder = os.path.join(DATA_DIR, stream)
@@ -195,7 +170,10 @@ def handle_host_create_game(data=None):
         'questionStartTime': None,
         'answerTimes': {},
         'gameMode': 'manual',
-        'autoDelay': 5
+        'autoDelay': 5,
+        'stream': stream_name,
+        'filename': filename_name,
+        'questionTime': question_time
     }
     join_room(room_code)
     emit('game_created', {'roomCode': room_code})
@@ -216,14 +194,10 @@ def handle_host_start_game(data):
     room['autoDelay'] = data.get('autoDelay', 5)
     print(f"Game mode: {room['gameMode']}, Auto delay: {room['autoDelay']}s")
 
-    # Use pre-loaded questions if available, otherwise use default behavior
+    # Use pre-loaded questions if available, otherwise use all questions_data as fallback
     if len(room['gameQuestions']) == 0:
-        # Fallback to default questions_data (for backward compatibility)
-        room['gameQuestions'] = [q for q in questions_data if MIN <= q['id'] <= MAX]
-        
-        if len(room['gameQuestions']) == 0:
-            print("Filter returned empty, loading all questions.")
-            room['gameQuestions'] = questions_data[:]
+        print("No pre-loaded questions, using all available questions as fallback.")
+        room['gameQuestions'] = questions_data[:]
     
     # Shuffle the questions
     random.shuffle(room['gameQuestions'])
@@ -296,7 +270,17 @@ def handle_player_join(data):
     room['players'].append(player)
     join_room(room_code)
 
-    emit('player_joined_success', {'roomCode': room_code, 'name': name})
+    # Send game info to the player
+    game_info = {
+        'roomCode': room_code,
+        'name': name,
+        'stream': room.get('stream', 'Not specified'),
+        'filename': room.get('filename', 'Not specified'),
+        'totalQuestions': len(room['gameQuestions']),
+        'questionTime': room.get('questionTime', QUESTION_TIME)
+    }
+    
+    emit('player_joined_success', game_info)
     socketio.emit('update_players', room['players'], to=room_code)
     print(f"{name} joined {room_code}")
 
@@ -482,16 +466,6 @@ def get_exam_questions():
 
 
 
-
-
-
-
-
-
-
-
-
-
 def send_question(room_code):
     room = rooms.get(room_code)
     if not room:
@@ -508,19 +482,21 @@ def send_question(room_code):
     if not question:
         return
     
+    question_time = room.get('questionTime', QUESTION_TIME)
+    
     question_payload = {
         'index': room['currentQuestionIndex'],
         'total': len(room['gameQuestions']),
         'text': question['text'],
         'options': question['options'],
-        'time': QUESTION_TIME
+        'time': question_time
     }
 
     socketio.emit('new_question', question_payload, to=room_code)
 
     # Start Timer in background thread
     def timer_countdown():
-        time_left = QUESTION_TIME
+        time_left = question_time
         room['timer_stop'] = False
         
         while time_left > 0 and not room.get('timer_stop', False):

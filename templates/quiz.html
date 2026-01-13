@@ -74,6 +74,13 @@
                     <p class="text-gray-500 text-sm mt-1">Questions will be randomly selected from the set</p>
                 </div>
 
+                <!-- Question Time Input -->
+                <div>
+                    <label for="host-question-time" class="block text-lg font-semibold text-gray-300 mb-2">Time per Question (seconds):</label>
+                    <input type="number" id="host-question-time" value="15" min="5" max="300" class="w-full bg-gray-800 border-2 border-gray-700 rounded-xl px-4 py-3 text-white text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition">
+                    <p class="text-gray-500 text-sm mt-1">Minimum: 5 seconds, Maximum: 5 minutes (300 seconds)</p>
+                </div>
+
                 <!-- Load Button -->
                 <button id="btn-host-load-questions" class="w-full bg-green-600 hover:bg-green-500 text-white text-xl font-bold py-4 px-8 rounded-xl shadow-xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" disabled>
                     Create Game Room
@@ -159,6 +166,17 @@
         <h2 class="text-4xl font-bold mb-2">You're In!</h2>
         <p class="text-2xl text-gray-400">Waiting for host to start...</p>
         <p id="player-display-name" class="mt-8 text-indigo-400 font-bold text-xl bg-gray-900 px-6 py-2 rounded-full inline-block">---</p>
+        
+        <!-- Game Info -->
+        <div id="player-game-info" class="mt-8 bg-gray-800 p-6 rounded-xl border border-gray-700 max-w-md mx-auto">
+            <h3 class="text-xl font-bold mb-4 text-indigo-400">Game Setup</h3>
+            <div class="space-y-2 text-left">
+                <p class="text-gray-400">Stream: <span id="player-stream-name" class="text-white font-semibold">---</span></p>
+                <p class="text-gray-400">Question Set: <span id="player-questionset-name" class="text-white font-semibold">---</span></p>
+                <p class="text-gray-400">Total Questions: <span id="player-total-questions" class="text-white font-semibold">---</span></p>
+                <p class="text-gray-400">Time per Question: <span id="player-question-time" class="text-white font-semibold">---</span> seconds</p>
+            </div>
+        </div>
         
         <!-- Rules of the game -->
         <div class="mt-10 max-w-2xl text-left bg-gray-800 p-6 rounded-xl border border-gray-700">

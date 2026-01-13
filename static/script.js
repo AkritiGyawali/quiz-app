@@ -231,6 +231,7 @@ function loadHostQuestions(stream, filename, maxQuestions) {
     const loadingIndicator = document.getElementById('host-loading-indicator');
     const errorMessage = document.getElementById('host-error-message');
     const loadBtn = document.getElementById('btn-host-load-questions');
+    const questionTime = parseInt(document.getElementById('host-question-time').value) || 15;
 
     loadingIndicator.classList.remove('hidden');
     errorMessage.classList.add('hidden');
@@ -259,14 +260,16 @@ function loadHostQuestions(stream, filename, maxQuestions) {
             stream: stream,
             filename: filename,
             maxQuestions: maxQuestions,
-            totalQuestions: selectedQuestions.length
+            totalQuestions: selectedQuestions.length,
+            questionTime: questionTime
         }));
         
         // Now create the game with the loaded questions
         socket.emit('host_create_game', {
             stream: stream,
             filename: filename,
-            maxQuestions: maxQuestions
+            maxQuestions: maxQuestions,
+            questionTime: questionTime
         });
         
         loadingIndicator.classList.add('hidden');
@@ -377,11 +380,18 @@ socket.on('update_players', (players) => {
 });
 
 // 2. Player Join Logic
-socket.on('player_joined_success', ({ roomCode, name }) => {
-    myRoomCode = roomCode;
-    myName = name;
-    saveGameState('player', roomCode, name);
-    document.getElementById('player-display-name').textContent = name;
+socket.on('player_joined_success', (data) => {
+    myRoomCode = data.roomCode;
+    myName = data.name;
+    saveGameState('player', data.roomCode, data.name);
+    document.getElementById('player-display-name').textContent = data.name;
+    
+    // Display game info
+    document.getElementById('player-stream-name').textContent = data.stream || 'Not specified';
+    document.getElementById('player-questionset-name').textContent = data.filename || 'Not specified';
+    document.getElementById('player-total-questions').textContent = data.totalQuestions || '---';
+    document.getElementById('player-question-time').textContent = data.questionTime || '---';
+    
     showView('playerWaiting');
 });
 

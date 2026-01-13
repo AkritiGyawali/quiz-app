@@ -11,9 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let streamsData = {};
     let currentQuestions = [];
+    let examTimerInterval = null;
+    let examTimeRemaining = 0;
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
 
     // Fetch streams on page load
     fetchStreams();
+
+    // Close modal button
+    document.getElementById('closeResultsModal').addEventListener('click', function() {
+        resultsModal.classList.add('hidden');
+    });
 
     function fetchStreams() {
         fetch('/api/stream', {
@@ -109,6 +126,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             loadingIndicator.classList.add('hidden');
             
+            // Start exam timer
+            const examDuration = parseInt(document.getElementById('examTimer').value) || 5;
+            startExamTimer(examDuration * 60); // Convert minutes to seconds
+            
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
@@ -122,6 +143,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderQuestions(questions) {
         const submitButton = examForm.querySelector('.submit-btn');
         examForm.innerHTML = '';
+
+        // Add timer display
+        const timerDisplay = document.createElement('div');
+        timerDisplay.id = 'examTimerDisplay';
+        timerDisplay.className = 'fixed top-20 right-6 bg-gray-900 border-2 border-indigo-500 rounded-xl p-4 shadow-xl z-40';
+        timerDisplay.innerHTML = `
+            <div class="text-center">
+                <div class="text-gray-400 text-sm font-semibold mb-1">Time Remaining</div>
+                <div id="timerDisplay" class="text-3xl font-black text-indigo-400">--:--</div>
+            </div>
+        `;
+        examForm.appendChild(timerDisplay);
 
         questions.forEach((question, index) => {
             const questionDiv = document.createElement('div');
@@ -141,7 +174,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 optionItem.className = 'option-item';
 
                 const label = document.createElement('label');
-                label.className = 'option-label flex items-center gap-4 p-4 bg-gray-800 border-2 border-gray-700 rounded-xl cursor-pointer hover:bg-gray-750 hover:border-indigo-500 transition-all';
+                label.className = 'option-label flex items-center gap-4 p-4 bg-gray-850 border-2 border-gray-700 rounded-xl cursor-pointer hover:bg-gray-800 hover:border-indigo-500 transition-all';
+                label.style.backgroundColor = '#1a1d29'; // Darker background for better contrast
 
                 const input = document.createElement('input');
                 input.type = 'radio';
@@ -188,11 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 allLabels.forEach(l => {
                     l.classList.remove('ring-4', 'ring-indigo-500', 'bg-indigo-600', 'border-indigo-500');
-                    l.classList.add('bg-gray-800', 'border-gray-700');
+                    l.style.backgroundColor = '#1a1d29'; // Reset to darker background
                 });
                 
-                this.classList.remove('bg-gray-800', 'border-gray-700');
                 this.classList.add('ring-4', 'ring-indigo-500', 'bg-indigo-600', 'border-indigo-500');
+                this.style.backgroundColor = ''; // Remove inline style to use class
             });
         });
     }
@@ -202,9 +236,61 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessage.classList.remove('hidden');
     }
     
+    // Exam Timer Functions
+    function startExamTimer(seconds) {
+        examTimeRemaining = seconds;
+        updateTimerDisplay();
+        
+        examTimerInterval = setInterval(() => {
+            examTimeRemaining--;
+            updateTimerDisplay();
+            
+            // Change color when less than 1 minute remaining
+            const timerDisplay = document.getElementById('timerDisplay');
+            if (examTimeRemaining <= 60) {
+                timerDisplay.classList.remove('text-indigo-400');
+                timerDisplay.classList.add('text-red-500', 'animate-pulse');
+            }
+            
+            // Auto-submit when time runs out
+            if (examTimeRemaining <= 0) {
+                clearInterval(examTimerInterval);
+                autoSubmitExam();
+            }
+        }, 1000);
+    }
+    
+    function updateTimerDisplay() {
+        const minutes = Math.floor(examTimeRemaining / 60);
+        const seconds = examTimeRemaining % 60;
+        const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        const timerElement = document.getElementById('timerDisplay');
+        if (timerElement) {
+            timerElement.textContent = display;
+        }
+    }
+    
+    function autoSubmitExam() {
+        alert('Time is up! Your exam will be submitted automatically.');
+        // Trigger form submission
+        const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
+        examForm.dispatchEvent(submitEvent);
+    }
+    
+    function stopExamTimer() {
+        if (examTimerInterval) {
+            clearInterval(examTimerInterval);
+            examTimerInterval = null;
+        }
+    }
+    
     // Handle form submission
     examForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        // Stop the timer
+        stopExamTimer();
         
         // Calculate results
         const results = calculateResults();
@@ -296,13 +382,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Highlight correct answer
                 if (index === correctAnswer) {
-                    label.classList.remove('bg-gray-800', 'border-gray-700');
+                    label.style.backgroundColor = ''; // Remove inline style
                     label.classList.add('bg-green-600', 'border-green-500', 'ring-4', 'ring-green-500/30');
                 }
                 
                 // Highlight user's wrong answer
                 if (userAnswer !== null && index === userAnswer && userAnswer !== correctAnswer) {
-                    label.classList.remove('bg-gray-800', 'border-gray-700');
+                    label.style.backgroundColor = ''; // Remove inline style
                     label.classList.add('bg-red-600', 'border-red-500', 'ring-4', 'ring-red-500/30');
                 }
                 

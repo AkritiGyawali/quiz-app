@@ -28,14 +28,27 @@
     <nav class="bg-gray-900 border-b border-gray-800 px-6 py-4 fixed w-full top-0 z-50 backdrop-blur-sm bg-opacity-90">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="/" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500 hover:from-indigo-300 hover:to-purple-400 transition">← Home</a>
-            <div class="flex gap-4">
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-4">
                 <a href="/quiz" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold">Multiplayer Mode</a>
                 <a href="/exam" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition font-semibold">Exam Mode</a>
             </div>
-
             
-
-<button onclick="downloadPDF()">Download Report as PDF</button>
+            <!-- Hamburger Button (Mobile) -->
+            <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col gap-2">
+                <a href="/quiz" class="px-4 py-2 rounded-lg hover:bg-gray-800 transition font-semibold text-center">Multiplayer Mode</a>
+                <a href="/exam" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition font-semibold text-center">Exam Mode</a>
+            </div>
         </div>
     </nav>
 
@@ -67,6 +80,13 @@
                     </select>
                 </div>
 
+                <!-- Exam Timer Input -->
+                <div>
+                    <label for="examTimer" class="block text-lg font-semibold text-gray-300 mb-2">Exam Duration (minutes):</label>
+                    <input type="number" id="examTimer" value="5" min="1" max="180" class="w-full bg-gray-800 border-2 border-gray-700 rounded-xl px-4 py-3 text-white text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition">
+                    <p class="text-gray-500 text-sm mt-1">Minimum: 1 minute, Maximum: 3 hours (180 minutes)</p>
+                </div>
+
                 <!-- Load Button -->
                 <button id="loadQuestionsBtn" class="w-full bg-green-600 hover:bg-green-500 text-white text-xl font-bold py-4 px-8 rounded-xl shadow-xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" disabled>
                     Load Questions
@@ -93,7 +113,10 @@
 
         <!-- Results Modal (Hidden by default) -->
         <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 max-w-2xl w-full shadow-2xl">
+            <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 max-w-2xl w-full shadow-2xl relative">
+                <!-- Close Button -->
+                <button id="closeResultsModal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition text-3xl font-bold leading-none">&times;</button>
+                
                 <h2 class="text-4xl font-black mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Exam Results</h2>
                 
                 <div class="text-center mb-8">
@@ -123,6 +146,11 @@
                     <button onclick="location.reload()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-xl transition">Retake Exam</button>
                     <a href="/" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition text-center">Back to Menu</a>
                 </div>
+                
+                <!-- Download PDF Button -->
+                <button onclick="downloadPDF()" class="w-full mt-4 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-xl transition">
+                    📥 Download Report as PDF
+                </button>
             </div>
         </div>
     </div>
