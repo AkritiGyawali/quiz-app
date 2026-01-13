@@ -65,6 +65,7 @@ window.addEventListener('load', () => {
 // DOM Elements
 const views = {
     menu: document.getElementById('view-menu'),
+    hostQuestionSelect: document.getElementById('view-host-question-select'),
     hostLobby: document.getElementById('view-host-lobby'),
     playerJoin: document.getElementById('view-player-join'),
     playerWaiting: document.getElementById('view-player-waiting'),
@@ -113,7 +114,8 @@ function showView(viewName) {
 
 document.getElementById('btn-menu-host').addEventListener('click', () => {
     isHost = true;
-    socket.emit('host_create_game');
+    showView('hostQuestionSelect');
+    initializeHostQuestionSelection();
 });
 
 document.getElementById('btn-menu-join').addEventListener('click', () => {
@@ -137,6 +139,150 @@ document.getElementById('mode-auto').addEventListener('change', (e) => {
         document.getElementById('auto-delay-container').classList.remove('hidden');
     }
 });
+
+// --- Host Question Selection Logic ---
+let hostStreamsData = {};
+let selectedQuestions = [];
+
+function initializeHostQuestionSelection() {
+    fetchHostStreams();
+    setupHostSelectionHandlers();
+}
+
+function fetchHostStreams() {
+    fetch('/api/stream', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        hostStreamsData = data.streams;
+        populateHostStreamDropdown();
+    })
+    .catch(error => {
+        showHostError('Failed to load streams: ' + error.message);
+    });
+}
+
+function populateHostStreamDropdown() {
+    const streamSelect = document.getElementById('host-stream-select');
+    streamSelect.innerHTML = '<option value="">-- Select Stream --</option>';
+    Object.keys(hostStreamsData).forEach(stream => {
+        const option = document.createElement('option');
+        option.value = stream;
+        option.textContent = stream.charAt(0).toUpperCase() + stream.slice(1);
+        streamSelect.appendChild(option);
+    });
+}
+
+function setupHostSelectionHandlers() {
+    const streamSelect = document.getElementById('host-stream-select');
+    const questionSetSelect = document.getElementById('host-questionset-select');
+    const loadBtn = document.getElementById('btn-host-load-questions');
+    const backBtn = document.getElementById('btn-host-question-back');
+
+    // Stream selection handler
+    streamSelect.addEventListener('change', function() {
+        const selectedStream = this.value;
+        questionSetSelect.innerHTML = '<option value="">-- Select Question Set --</option>';
+        
+        if (selectedStream && hostStreamsData[selectedStream]) {
+            questionSetSelect.disabled = false;
+            hostStreamsData[selectedStream].forEach(file => {
+                const option = document.createElement('option');
+                option.value = file;
+                option.textContent = file;
+                questionSetSelect.appendChild(option);
+            });
+        } else {
+            questionSetSelect.disabled = true;
+            loadBtn.disabled = true;
+        }
+    });
+
+    // Question set selection handler
+    questionSetSelect.addEventListener('change', function() {
+        loadBtn.disabled = !this.value;
+    });
+
+    // Load questions and create game
+    loadBtn.addEventListener('click', function() {
+        const stream = streamSelect.value;
+        const filename = questionSetSelect.value;
+        const maxQuestions = parseInt(document.getElementById('host-max-questions').value) || 10;
+        
+        if (!stream || !filename) {
+            showHostError('Please select both stream and question set');
+            return;
+        }
+
+        loadHostQuestions(stream, filename, maxQuestions);
+    });
+
+    // Back button
+    backBtn.addEventListener('click', function() {
+        showView('menu');
+    });
+}
+
+function loadHostQuestions(stream, filename, maxQuestions) {
+    const loadingIndicator = document.getElementById('host-loading-indicator');
+    const errorMessage = document.getElementById('host-error-message');
+    const loadBtn = document.getElementById('btn-host-load-questions');
+
+    loadingIndicator.classList.remove('hidden');
+    errorMessage.classList.add('hidden');
+    loadBtn.disabled = true;
+
+    fetch('/api/exam/questions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ stream, filename })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => {
+                throw new Error(err.error || 'Failed to load questions');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        selectedQuestions = data.questions;
+        
+        // Store the question set info and max questions for game creation
+        sessionStorage.setItem('hostQuestionSet', JSON.stringify({
+            stream: stream,
+            filename: filename,
+            maxQuestions: maxQuestions,
+            totalQuestions: selectedQuestions.length
+        }));
+        
+        // Now create the game with the loaded questions
+        socket.emit('host_create_game', {
+            stream: stream,
+            filename: filename,
+            maxQuestions: maxQuestions
+        });
+        
+        loadingIndicator.classList.add('hidden');
+    })
+    .catch(error => {
+        loadingIndicator.classList.add('hidden');
+        loadBtn.disabled = false;
+        showHostError(error.message);
+    });
+}
+
+function showHostError(message) {
+    const errorMessage = document.getElementById('host-error-message');
+    errorMessage.textContent = message;
+    errorMessage.classList.remove('hidden');
+}
 
 // --- Event Listeners: Host ---
 

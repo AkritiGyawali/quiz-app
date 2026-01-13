@@ -28,7 +28,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 # args = parser.parse_args()
 
 # QNS_FILE = args.file
-QNS_FILE = os.environ.get('QNS_FILE', 'math.yaml')  # Change to desired file path
+#QNS_FILE = os.environ.get('QNS_FILE', 'math.yaml')  # Change to desired file path
 
 try:
     # JSON format
@@ -145,9 +145,42 @@ def handle_disconnect():
 
 # --- HOST EVENTS ---
 @socketio.on('host_create_game')
-def handle_host_create_game():
+def handle_host_create_game(data=None):
     sid = request.sid
     print(f"host_create_game received from: {sid}")
+    
+    # Load questions based on selection if provided
+    game_questions = []
+    if data and data.get('stream') and data.get('filename'):
+        stream = data.get('stream')
+        filename = data.get('filename')
+        max_questions = data.get('maxQuestions', 10)
+        
+        try:
+            folder = os.path.join(DATA_DIR, stream)
+            if not os.path.isdir(folder):
+                emit('error', {'message': 'Invalid stream folder'})
+                return
+            
+            path = os.path.join(folder, filename)
+            if not os.path.isfile(path):
+                emit('error', {'message': 'Question file not found'})
+                return
+            
+            with open(path, 'r', encoding='utf-8') as f:
+                loaded_questions = yaml.safe_load(f)
+            
+            # Randomly select questions up to max_questions
+            if len(loaded_questions) > max_questions:
+                game_questions = random.sample(loaded_questions, max_questions)
+            else:
+                game_questions = loaded_questions[:]
+            
+            print(f"Loaded {len(game_questions)} questions from {stream}/{filename}")
+        except Exception as err:
+            print(f"Error loading questions: {err}")
+            emit('error', {'message': f'Error loading questions: {str(err)}'})
+            return
     
     room_code = str(random.randint(100000, 999999))
     rooms[room_code] = {
@@ -158,7 +191,7 @@ def handle_host_create_game():
         'timer_thread': None,
         'timer_stop': False,
         'answers': {},
-        'gameQuestions': [],
+        'gameQuestions': game_questions,  # Store pre-loaded questions
         'questionStartTime': None,
         'answerTimes': {},
         'gameMode': 'manual',
@@ -183,14 +216,16 @@ def handle_host_start_game(data):
     room['autoDelay'] = data.get('autoDelay', 5)
     print(f"Game mode: {room['gameMode']}, Auto delay: {room['autoDelay']}s")
 
-    # Filter questions with ID 5 to 10
-    room['gameQuestions'] = [q for q in questions_data if MIN <= q['id'] <= MAX]
-
-    # Fallback: If filter finds nothing, load all questions
+    # Use pre-loaded questions if available, otherwise use default behavior
     if len(room['gameQuestions']) == 0:
-        print("Filter returned empty, loading all questions.")
-        room['gameQuestions'] = questions_data[:]
+        # Fallback to default questions_data (for backward compatibility)
+        room['gameQuestions'] = [q for q in questions_data if MIN <= q['id'] <= MAX]
+        
+        if len(room['gameQuestions']) == 0:
+            print("Filter returned empty, loading all questions.")
+            room['gameQuestions'] = questions_data[:]
     
+    # Shuffle the questions
     random.shuffle(room['gameQuestions'])
     print(f"Starting game with {len(room['gameQuestions'])} questions")
 
