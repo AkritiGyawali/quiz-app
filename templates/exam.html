@@ -46,24 +46,45 @@
             <p class="text-gray-400 text-lg">Answer all questions to the best of your ability</p>
         </div>
 
-        <form id="examForm">
-            {% for question in questions %}
-            <div class="question bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6 shadow-lg" data-question-id="{{ question.id }}" data-correct="{{ question.correct }}">
-                <div class="question-text text-xl md:text-2xl font-bold mb-6 text-gray-100">
-                    <span class="text-indigo-400 mr-2">{{ loop.index }}.</span> {{ question.text|safe }}
+        <!-- Question Selection Section -->
+        <div id="questionSelector" class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Choose Questions</h2>
+            
+            <div class="space-y-6">
+                <!-- Stream Dropdown -->
+                <div>
+                    <label for="streamSelect" class="block text-lg font-semibold text-gray-300 mb-2">Stream:</label>
+                    <select id="streamSelect" class="w-full bg-gray-800 border-2 border-gray-700 rounded-xl px-4 py-3 text-white text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition">
+                        <option value="">-- Select Stream --</option>
+                    </select>
                 </div>
-                <ul class="options space-y-3">
-                    {% for option in question.options %}
-                    <li class="option-item">
-                        <label class="option-label flex items-center gap-4 p-4 bg-gray-800 border-2 border-gray-700 rounded-xl cursor-pointer hover:bg-gray-750 hover:border-indigo-500 transition-all">
-                            <input type="radio" name="question{{ question.id }}" value="{{ loop.index0 }}" class="w-5 h-5 text-indigo-600 focus:ring-indigo-500 focus:ring-2">
-                            <span class="text-lg text-gray-200">{{ option|safe }}</span>
-                        </label>
-                    </li>
-                    {% endfor %}
-                </ul>
+
+                <!-- Question Set Dropdown -->
+                <div>
+                    <label for="questionSetSelect" class="block text-lg font-semibold text-gray-300 mb-2">Question Set:</label>
+                    <select id="questionSetSelect" class="w-full bg-gray-800 border-2 border-gray-700 rounded-xl px-4 py-3 text-white text-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition" disabled>
+                        <option value="">-- Select Question Set --</option>
+                    </select>
+                </div>
+
+                <!-- Load Button -->
+                <button id="loadQuestionsBtn" class="w-full bg-green-600 hover:bg-green-500 text-white text-xl font-bold py-4 px-8 rounded-xl shadow-xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100" disabled>
+                    Load Questions
+                </button>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="hidden text-center">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+                    <p class="text-gray-400 mt-2">Loading questions...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="hidden bg-red-900/50 border border-red-500 rounded-xl p-4 text-red-200"></div>
             </div>
-            {% endfor %}
+        </div>
+
+        <form id="examForm" class="hidden">
+            <!-- Questions will be loaded here dynamically -->
             
             <button type="submit" class="submit-btn w-full md:w-auto mx-auto block bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-xl shadow-xl transition transform hover:scale-105">
                 Submit Exam
@@ -106,18 +127,6 @@
         </div>
     </div>
 
-    <script>
-        // Store correct answers
-        const correctAnswers = {};
-        document.querySelectorAll('.question').forEach(q => {
-            const id = q.dataset.questionId;
-            const correct = parseInt(q.dataset.correct);
-            correctAnswers[id] = correct;
-        });
-    </script>
     <script src="{{ url_for('static', filename='exam.js') }}"></script>
-
-
-    
 </body>
 </html>

@@ -16,7 +16,9 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Load questions from file
 questions_data = []
-
+CURRENT_SET = "math.yaml"  # Default question set
+BASE_DIR = os.path.dirname(__file__)
+DATA_DIR = os.path.join(BASE_DIR, "data")
 
 # for developer mode
 # parser = argparse.ArgumentParser(description='Real-time Quiz Game Server')
@@ -57,6 +59,28 @@ MAX = int(os.environ.get('QNS_MAX', 10))
 
 
 
+# load questions function
+def load_questions(stream , filename: str):
+    global questions_data, CURRENT_SET
+
+    folder = os.path.join(DATA_DIR, stream)
+
+    if not os.path.isdir(folder):
+        raise ValueError("Stream folder does not exist")    
+        
+    path = os.path.join(folder, filename)
+    
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            questions_data = yaml.safe_load(f)
+    except Exception as err:
+        print(f"Error loading questions from {path}: {err}")
+        return
+   
+    CURRENT_SET = f"{stream}/{filename}"
+    print("Loaded:", CURRENT_SET)
+
+   
 # Serve static files
 @app.route('/')
 def index():
@@ -68,10 +92,9 @@ def quiz():
 
 @app.route('/exam')
 def exam():
-    # Load questions from math.yaml for exam mode
-    with open(os.path.join(os.path.dirname(__file__), 'data', QNS_FILE), 'r', encoding='utf-8') as f:
-        questions = yaml.safe_load(f)
-    return render_template('exam.html', questions=questions)
+    # Render exam page without pre-loaded questions
+    # Questions will be loaded dynamically via JavaScript
+    return render_template('exam.html')
 
 @app.route('/<path:filename>')
 def serve_static(filename):
@@ -361,6 +384,78 @@ def handle_player_reconnect(data):
     socketio.emit('update_players', room['players'], to=room_code)
     
     print(f"Player {player_name} successfully reconnected to {room_code}")
+
+
+
+
+#--------------
+# Admin APIs
+#--------------
+
+# stream api
+@app.route('/api/stream', methods=['GET'])
+def list_streams():
+    streams = {}
+    for folder in os.listdir(DATA_DIR):
+        folder_path = os.path.join(DATA_DIR, folder)
+        if os.path.isdir(folder_path):
+           files = [
+                f for f in os.listdir(folder_path)
+                if f.endswith(".yml") or f.endswith(".yaml")
+            ]
+           streams[folder] = files
+    return {'streams': streams}, 200
+
+# use set
+@app.route('/api/use-set', methods=['POST'])
+def use_set():
+    data = request.get_json()
+    load_questions(data.get('stream'), data.get('filename'))
+    return { 'ok': True , 'active': CURRENT_SET}, 200
+
+# debug qns set 
+@app.route('/api/active-set', methods=['GET'])
+def active_set():
+    return { 'active': CURRENT_SET, 'count': len(questions_data)}, 200
+
+# Get questions for exam mode
+@app.route('/api/exam/questions', methods=['POST'])
+def get_exam_questions():
+    data = request.get_json()
+    stream = data.get('stream')
+    filename = data.get('filename')
+    
+    if not stream or not filename:
+        return {'error': 'Stream and filename are required'}, 400
+    
+    folder = os.path.join(DATA_DIR, stream)
+    if not os.path.isdir(folder):
+        return {'error': 'Invalid stream folder'}, 400
+    
+    path = os.path.join(folder, filename)
+    if not os.path.isfile(path):
+        return {'error': 'Question file not found'}, 404
+    
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            questions = yaml.safe_load(f)
+        return {'questions': questions, 'stream': stream, 'filename': filename}, 200
+    except Exception as err:
+        return {'error': f'Error loading questions: {str(err)}'}, 500
+
+# API ends here -------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 def send_question(room_code):
     room = rooms.get(room_code)

@@ -1,0 +1,48 @@
+- id: 1
+  text: "What is the value of $x$ in the equation $2x + 5 = 15$?"
+  options: ["3", "5", "10", "15"]
+  correct: 1 # 5
+- id: 2
+  text: "What is the result of the definite integral $\\int_{0}^{\\pi} \\sin(x) \\, dx$?"
+  options: ["0", "1", "2", "$\\pi$"]
+  correct: 2 # 2
+- id: 3
+  text: "If $a = 3$ and $b = 4$, what is the length of the hypotenuse $c$ of a right triangle, where $a^2 + b^2 = c^2$?"
+  options: ["5", "7", "$\\sqrt{7}$", "25"]
+  correct: 0 # 5
+- id: 4
+  text: "Simplify the expression $e^{\\ln(x^2)}$"
+  options: ["$x$", "$2x$", "$x^2$", "$\\ln(x)$"]
+  correct: 2 # x^2
+- id: 5
+  text: "What is the derivative of $f(x) = 3x^4 - 2x + 1$ with respect to $x$?"
+  options: ["$12x^3 - 2$", "$4x^3 - 2$", "$3x^5 - 2x^2 + x$", "$12x^4 - 2$"]
+  correct: 0 # 12x^3 - 2
+- id: 6
+  text: "Solve for $y$: $y^2 - 9 = 0$"
+  options: ["$y = 3$", "$y = -3$", "$y = \\pm 3$", "$y = 9$"]
+  correct: 2 # y = +- 3
+- id: 7
+  text: "What is the general form of the quadratic formula for $ax^2 + bx + c = 0$?"
+  options:
+    - "$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$"
+    - "$x = \\frac{b \\pm \\sqrt{b^2 + 4ac}}{2a}$"
+    - "$x = \\frac{-b \\pm \\sqrt{b^2 + 4ac}}{2a}$"
+    - "$x = \\frac{b \\pm \\sqrt{b^2 - 4ac}}{2a}$"
+  correct: 0 # Standard Quadratic Formula
+- id: 8
+  text: "What is the magnitude of the vector $\\mathbf{v} = 3\\mathbf{i} - 4\\mathbf{j}$?"
+  options: ["$1$", "$\\sqrt{7}$", "$5$", "$25$"]
+  correct: 2 # 5
+- id: 9
+  text: "What is the result of the summation $\\sum_{n=1}^{4} n^2$?"
+  options: ["10", "14", "30", "55"]
+  correct: 2 # 1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30
+- id: 10
+  text: "What is Euler's Identity, which relates $e, i, \\pi, 1$, and $0$?"
+  options:
+    - "$e^{i\\pi} + 1 = 0$"
+    - "$e^{i\\pi} - 1 = 0$"
+    - "$e^{\\pi} + i = 0$"
+    - "$e^{i} + \\pi = 0$"
+  correct: 0 # Euler's Identity
